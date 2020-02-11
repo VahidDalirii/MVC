@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Createing Animal</h1>
+
+<form action="/Animals/Create" method="post">
+
+    <div>
+        <input type="text" name="name" value="" placeholder="Name"/>
+    </div>
+
+    <div>
+        <input type="text" name="species" value="" placeholder="Species"/>
+    </div>
+
+    <div>
+        <input type="number" name="age" value="" placeholder="Age"/>
+    </div>
+
+    <input type="submit" name="Submit" value="Submit" class="btn btn-lg btn-primary" />
+
+</form>
+

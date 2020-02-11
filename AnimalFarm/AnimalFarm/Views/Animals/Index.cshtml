@@ -1,0 +1,19 @@
+﻿@model List<Animal>
+@{
+    ViewData["Title"] = "Animals";
+}
+
+<h1>List all Animals</h1>
+
+<p>Total animals count: @Model.Count</p>
+
+<ul>
+    @foreach (Animal animal in Model)
+    {
+        <li>
+            <a href="/Animals/Show/@animal.Id">
+                @animal.Name is a @animal.Species and is @animal.Age years old
+            </a>
+        </li>
+    }
+</ul>

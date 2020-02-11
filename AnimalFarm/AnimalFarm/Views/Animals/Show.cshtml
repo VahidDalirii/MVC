@@ -1,0 +1,17 @@
+﻿@model Animal
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Show animals</h1>
+<p><b>Name: </b>@Model.Name</p>
+<p><b>Species: </b>@Model.Species</p>
+<p><b>Age: </b>@Model.Age</p>
+
+<a href="/Animals/Edit/@Model.Id" class="btn btn-dark">Edit animal</a>
+
+<form action="/Animals/Delete" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" name="Submit" value="Delete animal" class="byn btn-danger" />
+</form>
+
