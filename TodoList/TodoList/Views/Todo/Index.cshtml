@@ -1,0 +1,20 @@
+﻿@model List<Todo>
+@{
+    ViewData["Title"] = "Todos";
+}
+
+<h1>List all Todos</h1>
+
+<p>Total Todos count: @Model.Count</p>
+
+<ul>
+    @foreach (Todo todo in Model)
+    {
+        <li>
+            <a href="/Todo/Show/@todo.Id">
+                [@todo.Priority]    @todo.Name     @todo.Description   
+            </a>
+        </li>
+    }
+</ul>
+

@@ -1,0 +1,18 @@
+﻿@model Todo
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Show Todos</h1>
+<hr /><br />
+<p><b>Priority: </b>@Model.Priority</p>
+<p><b>Name: </b>@Model.Name</p>
+<p><b>Description: </b>@Model.Description</p>
+
+
+<a href="/Todo/Edit/@Model.Id" class="btn btn-dark">Edit todo</a>
+
+<form action="/Todos/Delete" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" name="Submit" value="Delete todo" class="byn btn-danger" />
+</form>

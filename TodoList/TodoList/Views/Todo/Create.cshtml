@@ -5,19 +5,22 @@
 
 <h1>Createing Todo</h1>
 
-<form action="/Todos/Create" method="post">
+<form action="/Todo/Create" method="post">
 
     <div>
-        <input type="text" name="name" value="" placeholder="Name" class="form-control" />
+        <input type="text" name="name" value="" placeholder="Name" />
     </div>
 
     <div>
-        <input type="text" name="description" value="" placeholder="Description" class="form-control" />
+        <input type="text" name="description" value="" placeholder="Description" />
     </div>
 
 
     <div>
-        <input type="radio" name="priority" value="" placeholder="Priority" class="form-control" />
+        <p>Priority: </p>
+        <input type="radio" name="high" value="High" style="float:left" /><p>High</p>
+        <input type="radio" name="medium" value="Medium" style="float:left"/><p>Medium</p>
+        <input type="radio" name="low" value="Low" style="float:left"/><p>Low</p>
     </div>
 
     <input type="submit" name="Submit" value="Submit" class="btn btn-lg btn-primary" />

@@ -27,12 +27,7 @@ namespace AnimalFarm.Controllers
         {
             return View();
         }
-
-        public IActionResult Vahid()
-        {
-            return View();
-        }
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

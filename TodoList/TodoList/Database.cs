@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace TodoList
         private const string TODO_COLLECTION = "Animal";
         private readonly IMongoDatabase db;
 
-        public Database(string dbName="Todo list")
+        public Database(string dbName="Todo-list")
         {
             MongoClient client = new MongoClient();
             db = client.GetDatabase(dbName);
@@ -33,16 +34,21 @@ namespace TodoList
         public void EditTodo(Todo todo)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
+
             var filter = Builders<Todo>.Filter.Eq("Id", todo.Id);
 
-            var updateName = Builders<Todo>.Update.Set("Name", todo.Name);
+            var updateName = Builders<Todo>.Update
+                .Set("Name", todo.Name)
+                .Set("Description", todo.Description)
+                .Set("Priority", todo.Priority);
+
             collection.UpdateOne(filter, updateName);
+        }
 
-            var updateDescription = Builders<Todo>.Update.Set("Description", todo.Description);
-            collection.UpdateOne(filter, updateDescription);
-
-            var updatePriority = Builders<Todo>.Update.Set("Priority", todo.Priority);
-            collection.UpdateOne(filter, updatePriority);
+        internal Todo GetTodoById(ObjectId id)
+        {
+            var collection = db.GetCollection<Todo>(TODO_COLLECTION);
+            return collection.Find(td => td.Id == id).First();
         }
 
         public void DeleteTodo(Todo todo)
