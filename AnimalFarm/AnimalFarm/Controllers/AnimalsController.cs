@@ -74,5 +74,11 @@ namespace AnimalFarm.Controllers
             });
             return Redirect("/Animals");
         }
+
+        [Route("Animals/{id}/SetOwner")]
+        public IActionResult SetOwner(string id)
+        {
+            return View();
+        }
     }
 }

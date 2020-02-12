@@ -10,7 +10,8 @@ namespace AnimalFarm
 {
     public class Database
     {
-        private const string ANIMALS_COLLECTION = "Animal";
+        private const string ANIMALS_COLLECTION = "Animals";
+        private const string PERSONS_COLLECTION = "Persons";
 
         private readonly IMongoDatabase _database;
 
@@ -19,6 +20,15 @@ namespace AnimalFarm
             MongoClient dbClient = new MongoClient();
 
             _database = dbClient.GetDatabase(dbName);
+        }
+
+        internal List<Person> GetPersons()
+        {
+            var collection = _database.GetCollection<Person>(PERSONS_COLLECTION);
+
+            var findResult = collection.Find(m => true);
+
+            return findResult.ToList();
         }
 
         public void SaveAnimal(Animal animal)
@@ -39,6 +49,12 @@ namespace AnimalFarm
             var collection = _database.GetCollection<Animal>(ANIMALS_COLLECTION);
             Animal animal = collection.Find(a => a.Id == animalId).First();
             return animal;
+        }
+
+        internal void SavePerson(Person person)
+        {
+            var collection = _database.GetCollection<Person>(PERSONS_COLLECTION);
+            collection.InsertOne(person);
         }
 
         internal void UpdateAnimal(ObjectId id, string name, string species, int age)
