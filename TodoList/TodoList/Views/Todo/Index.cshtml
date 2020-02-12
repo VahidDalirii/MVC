@@ -3,18 +3,33 @@
     ViewData["Title"] = "Todos";
 }
 
-<h1>List all Todos</h1>
-
 <p>Total Todos count: @Model.Count</p>
 
-<ul>
+
+<ul> 
     @foreach (Todo todo in Model)
     {
+
         <li>
             <a href="/Todo/Show/@todo.Id">
-                [@todo.Priority]    @todo.Name     @todo.Description   
+                [@todo.Priority]    @todo.Name ,    @todo.Description
             </a>
         </li>
     }
 </ul>
+
+<form action="/Todo" method="post">
+    <div>
+        <br /><p>Sort by priority: </p>
+        <br />
+        <input type="radio" name="priority" value="High" style="float:left" /><p>High</p>
+        <input type="radio" name="priority" value="Medium" style="float:left" /><p>Medium</p>
+        <input type="radio" name="priority" value="Low" style="float:left" /><p>Low</p>
+
+        <input type="submit" name="submit" value="Sort" class="btn btn-lg btn-primary" />
+        <input type="submit" name="submit" value="Filter" class="btn btn-lg btn-primary" />
+    </div>
+</form>
+
+
 

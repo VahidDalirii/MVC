@@ -31,18 +31,24 @@ namespace TodoList
             return collection.Find(td => true).ToList();
         }
 
-        public void EditTodo(Todo todo)
+        public void EditTodo(ObjectId id, string name, string description, string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
 
-            var filter = Builders<Todo>.Filter.Eq("Id", todo.Id);
+            var filter = Builders<Todo>.Filter.Eq("Id", id);
 
             var updateName = Builders<Todo>.Update
-                .Set("Name", todo.Name)
-                .Set("Description", todo.Description)
-                .Set("Priority", todo.Priority);
+                .Set("Name", name)
+                .Set("Description", description)
+                .Set("Priority", priority);
 
             collection.UpdateOne(filter, updateName);
+        }
+
+        internal List<Todo> FilterTodos(string priority)
+        {
+            var collection = db.GetCollection<Todo>(TODO_COLLECTION);
+            return collection.Find(td => td.Priority==priority).ToList();
         }
 
         internal Todo GetTodoById(ObjectId id)
@@ -51,10 +57,10 @@ namespace TodoList
             return collection.Find(td => td.Id == id).First();
         }
 
-        public void DeleteTodo(Todo todo)
+        public void DeleteTodo(ObjectId id)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
-            collection.DeleteOne(td => td.Id==todo.Id);
+            collection.DeleteOne(td => td.Id==id);
         }
     }
 }

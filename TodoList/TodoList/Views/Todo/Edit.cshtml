@@ -1,11 +1,10 @@
-﻿
-@{
-    ViewData["Title"] = "Create";
+﻿@{
+    ViewData["Title"] = "Edit";
 }
 
 <h1>Createing Todo</h1>
 
-<form action="/Todo/Create" method="post">
+<form action="/Todo/Edit" method="post">
 
     <div>
         <input type="text" name="name" value="" placeholder="Name" />
@@ -19,10 +18,11 @@
     <div>
         <br /><p>Priority: </p>
         <input type="radio" name="priority" value="High" style="float:left" /><p>High</p>
-        <input type="radio" name="priority" value="Medium" style="float:left"/><p>Medium</p>
-        <input type="radio" name="priority" value="Low" style="float:left"/><p>Low</p>
+        <input type="radio" name="priority" value="Medium" style="float:left" /><p>Medium</p>
+        <input type="radio" name="priority" value="Low" style="float:left" /><p>Low</p>
     </div>
 
+    <input type="hidden" name="id" value="@Model.Id" />
     <input type="submit" name="Submit" value="Submit" class="btn btn-lg btn-primary" />
 
 </form>
