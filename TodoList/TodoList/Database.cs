@@ -19,18 +19,33 @@ namespace TodoList
             db = client.GetDatabase(dbName);
         }
 
+        /// <summary>
+        /// Saves a todo in db
+        /// </summary>
+        /// <param name="newTodo"></param>
         public void SaveTodo(Todo newTodo)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
             collection.InsertOne(newTodo);
         }
-  
+        
+        /// <summary>
+        /// Gets all todos from db 
+        /// </summary>
+        /// <returns>A list of all todos</returns>
         public List<Todo> GetTodos()
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
             return collection.Find(td => true).ToList();
         }
 
+        /// <summary>
+        /// Edits a todo with new values as parameters
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="priority"></param>
         public void EditTodo(ObjectId id, string name, string description, string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
@@ -45,18 +60,32 @@ namespace TodoList
             collection.UpdateOne(filter, updateName);
         }
 
+        /// <summary>
+        /// Filters todos after priority value 
+        /// </summary>
+        /// <param name="priority"></param>
+        /// <returns>A list of todos with same priority</returns>
         internal List<Todo> FilterTodos(string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
             return collection.Find(td => td.Priority==priority).ToList();
         }
 
+        /// <summary>
+        /// Gets a todo which matchs the id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>An object as a todo</returns>
         internal Todo GetTodoById(ObjectId id)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
             return collection.Find(td => td.Id == id).First();
         }
 
+        /// <summary>
+        /// Deletes a todo which matchs the id
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteTodo(ObjectId id)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);

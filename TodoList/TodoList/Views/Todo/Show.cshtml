@@ -10,9 +10,9 @@
 <p><b>Description: </b>@Model.Description</p>
 
 
-<a href="/Todo/Edit/@Model.Id" class="btn btn-dark">Edit todo</a>
+<a href="/Todo/Edit/@Model.Id" class="btn btn-outline-dark ">Edit todo</a>
 
 <form action="/Todo/Delete" method="post">
     <input type="hidden" name="id" value="@Model.Id" />
-    <input type="submit" name="Submit" value="Delete todo" class="byn btn-danger" />
+    <input type="submit" name="Submit" value="Delete todo" class="byn btn-outline-danger" />
 </form>

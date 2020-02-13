@@ -11,27 +11,49 @@ namespace TodoList.Controllers
 {
     public class TodoController : Controller
     {
+
+        /// <summary>
+        /// Gets all todos from db and sorts them after high priority 
+        /// </summary>
+        /// <returns>A sorted list of todos</returns>
         public IActionResult Index()
         {
             Database db = new Database();
             List<Todo> todos = db.GetTodos();
-            //IEnumerable<Todo> sortedTodos = todos.OrderByDescending(x =>Regex.Match(x.Priority, @"\W+").Value);
-            List<Todo> sortedTodos = todos.OrderByDescending(td => td.Priority == "High").ToList();
+
+            string[] priorities = { "High", "Medium", "Low" };
+            List<Todo> sortedTodos = todos.OrderBy(issue => Array.IndexOf(priorities, issue.Priority)).ToList();
+
             return View(sortedTodos);
         }
 
+
+        /// <summary>
+        /// Lets user to sort or filter todos after priority
+        /// </summary>
+        /// <param name="submit"></param>
+        /// <param name="priority"></param>
+        /// <returns>A list of sorted or filtered todos</returns>
         [HttpPost]
         public IActionResult Index(string submit,  string priority)
         {
             Database db = new Database();
             List<Todo> sortedOrFilteredTodos = new List<Todo>();
+
             if (submit.Equals("Sort"))
             {
                 List<Todo> allTodos = db.GetTodos();
-                sortedOrFilteredTodos = allTodos.OrderByDescending(td => td.Priority == priority).ToList();
 
-                
+                string[] priorities = { "High", "Medium", "Low" };
+
+                if (priority=="Low")
+                {
+                    Array.Reverse(priorities);
+                }
+
+                sortedOrFilteredTodos = allTodos.OrderBy(issue => Array.IndexOf(priorities, issue.Priority)).ToList();
             }
+
             else
             {
                 sortedOrFilteredTodos = db.FilterTodos(priority);
@@ -41,6 +63,11 @@ namespace TodoList.Controllers
 
         }
 
+        /// <summary>
+        /// Gets a todo by todo's id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>returns an object as todo</returns>
         public IActionResult Show(string id)
         {
             ObjectId todoId = new ObjectId(id);
@@ -55,6 +82,14 @@ namespace TodoList.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// Lets user to create a todo
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="priority"></param>
+        /// <returns>Redirects to todos list</returns>
         [HttpPost]
         public IActionResult Create(string name, string description, string priority)
         {
@@ -68,7 +103,11 @@ namespace TodoList.Controllers
             return Redirect("/Todo");
         }
 
-        
+        /// <summary>
+        /// Gets a todo by todo's id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>returns an object as todo</returns>
         public IActionResult Edit(string id)
         {
             ObjectId todoId = new ObjectId(id);
@@ -78,6 +117,14 @@ namespace TodoList.Controllers
             return View(todo);
         }
 
+        /// <summary>
+        /// Lets user edits a todo with new values and saves the new values in db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="priority"></param>
+        /// <returns>Returns the edited todo with new values</returns>
         [HttpPost]
         public IActionResult Edit(string id,string name, string description, string priority)
         {
@@ -88,6 +135,11 @@ namespace TodoList.Controllers
             return Redirect($"/Todo/Show/{id}");
         }
 
+        /// <summary>
+        /// Finds a todo in db and deletes it
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Redirects to list of todos</returns>
         public IActionResult Delete(string id)
         {
             ObjectId todoId = new ObjectId(id);
