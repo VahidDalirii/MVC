@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <form action="/Customers" method="post">
+        <div>
+            <label for="customer">Choose customer type:</label>
+
+            <select id="customer">
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+            </select>
+
+            <input type="text" name="ssn" value="" placeholder="SSN" />
+            <input type="text" name="password" value="" placeholder="Password" />
+            <input type="submit" name="submit" value="Login" />
+        </div>
+    </form>
