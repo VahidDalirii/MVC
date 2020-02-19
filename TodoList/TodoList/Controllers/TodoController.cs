@@ -22,7 +22,7 @@ namespace TodoList.Controllers
             List<Todo> todos = db.GetTodos();
 
             string[] priorities = { "High", "Medium", "Low" };
-            List<Todo> sortedTodos = todos.OrderBy(issue => Array.IndexOf(priorities, issue.Priority)).ToList();
+            List<Todo> sortedTodos = todos.OrderBy(p => Array.IndexOf(priorities, p.Priority)).ToList();
 
             return View(sortedTodos);
         }
@@ -51,7 +51,7 @@ namespace TodoList.Controllers
                     Array.Reverse(priorities);
                 }
 
-                sortedOrFilteredTodos = allTodos.OrderBy(issue => Array.IndexOf(priorities, issue.Priority)).ToList();
+                sortedOrFilteredTodos = allTodos.OrderBy(p => Array.IndexOf(priorities, p.Priority)).ToList();
             }
 
             else
