@@ -15,6 +15,7 @@ namespace BankingSystemApp
         private const string TRANSACTIONS_COLLECTION = "Transactions";
 
         IMongoDatabase db;
+        
         public Database(string dbName= "Banking_system")
         {
             MongoClient client = new MongoClient();
@@ -32,6 +33,18 @@ namespace BankingSystemApp
         {
             var collection = db.GetCollection<Customer>(CUSTOMERS_COLLECTION);
             return collection.Find(c => true).ToList();
+        }
+
+        internal void SaveAccount(Account account)
+        {
+            var collection = db.GetCollection<Account>(ACCOUNTS_COLLECTION);
+            collection.InsertOne(account);
+        }
+
+        internal List<Account> GetAccountsByCustomerId(ObjectId id)
+        {
+            var collection = db.GetCollection<Account>(ACCOUNTS_COLLECTION);
+            return collection.Find(c => c.CustomerId==id).ToList();
         }
 
         internal void SaveCustomer(Customer customer)

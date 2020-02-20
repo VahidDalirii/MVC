@@ -9,6 +9,7 @@ namespace BankingSystemApp.Models
     public class Transaction
     {
         public ObjectId Id { get; set; }
+        public ObjectId AccountId { get; set; }
         public string Type { get; set; }
         public int Amount { get; set; }
         public DateTime Date { get; set; }

@@ -11,7 +11,7 @@ namespace BankingSystemApp.Controllers
 {
     public class CustomersController : Controller
     {
-        Database db = new Database();
+        private readonly Database db = new Database();
 
         // GET: Customers
         public ActionResult Index(string ssn, string password)
@@ -51,7 +51,7 @@ namespace BankingSystemApp.Controllers
             try
             {
                 db.SaveCustomer(customer);
-                return RedirectToAction("Index");
+                return RedirectToAction($"Index");
             }
             catch
             {

@@ -9,6 +9,7 @@ namespace BankingSystemApp.Models
     public class Customer
     {
         public ObjectId Id { get; set; }
+        public List<ObjectId> AccountIds { get; set; }
         public string Type { get; set; }
         public string SSN { get; set; }
         public string Password { get; set; }

@@ -9,6 +9,8 @@ namespace BankingSystemApp.Models
     public class Account
     {
         public ObjectId Id { get; set; }
+        public ObjectId CustomerId { get; set; }
+        public List<ObjectId> TransactionIds { get; set; } = null;
         public string Type { get; set; }
         public DateTime OpenDate { get; set; }
         public DateTime CloseDate { get; set; }
