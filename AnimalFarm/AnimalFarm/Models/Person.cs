@@ -12,5 +12,6 @@ namespace AnimalFarm.Models
         public string Name { get; set; }
         public string SSN { get; set; }
         public List<ObjectId> AnimalIds { get; set; }
+
     }
 }

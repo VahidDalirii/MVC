@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29609.76
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalFarm", "AnimalFarm\AnimalFarm.csproj", "{B7CEE277-DA1F-477D-A583-FE5A576DFA5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalFarm", "AnimalFarm\AnimalFarm.csproj", "{BECA6EC8-C200-48E2-9384-B03CC5A14F3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7CEE277-DA1F-477D-A583-FE5A576DFA5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7CEE277-DA1F-477D-A583-FE5A576DFA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7CEE277-DA1F-477D-A583-FE5A576DFA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7CEE277-DA1F-477D-A583-FE5A576DFA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BECA6EC8-C200-48E2-9384-B03CC5A14F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECA6EC8-C200-48E2-9384-B03CC5A14F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECA6EC8-C200-48E2-9384-B03CC5A14F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECA6EC8-C200-48E2-9384-B03CC5A14F3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8EA58E48-318D-4B8B-98FC-692AFDF9351B}
+		SolutionGuid = {8A859B39-CDF7-4177-BA07-0D8C6DB0FB5C}
 	EndGlobalSection
 EndGlobal

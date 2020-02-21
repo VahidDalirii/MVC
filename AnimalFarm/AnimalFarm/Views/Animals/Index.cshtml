@@ -4,19 +4,28 @@
 }
 
 <h1>List all Animals</h1>
-
 <p>Total animals count: @Model.Count</p>
 
 <ul>
     @foreach (Animal animal in Model)
     {
-        <li>
-            <a href="/Animals/Show/@animal.Id">
-                @animal.Name is a @animal.Species and is @animal.Age years old
-            </a>
+    <li>
+        <a href="/Animals/Show/@animal.Id">
+            @animal.Name is a @animal.Species and is @animal.Age years
+        </a>
 
+        @if (animal.OwnerId != null)
+        {
+            <a href="/Persons/Details/@animal.OwnerId" class="btn btn-dark btn-sm">Has owner</a>
+        }
+        else
+        {
             <a href="/Animals/@animal.Id/SetOwner" class="btn btn-outline-dark btn-sm">Set owner</a>
-            <hr />
-        </li>
+            
+        }
+
+        <hr style="border-color: red;" />
+    </li>
     }
+
 </ul>

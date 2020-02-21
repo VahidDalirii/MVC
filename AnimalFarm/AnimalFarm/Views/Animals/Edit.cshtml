@@ -3,24 +3,20 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editinging Animal</h1>
+<h1>Edit animal</h1>
+
 
 <form action="/Animals/Edit" method="post">
-
     <div>
         <input type="text" name="name" value="@Model.Name" placeholder="Name" />
     </div>
-
     <div>
         <input type="text" name="species" value="@Model.Species" placeholder="Species" />
     </div>
-
     <div>
-        <input type="number" name="age" value="@Model.Age" placeholder="Age"/>
+        <input type="number" name="age" value="@Model.Age" placeholder="Age" />
     </div>
 
     <input type="hidden" name="id" value="@Model.Id" />
     <input type="submit" name="Submit" value="Submit" class="btn btn-lg btn-primary" />
-
 </form>
-

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Todo
+@{
     ViewData["Title"] = "Edit";
 }
 
@@ -7,11 +8,11 @@
 <form action="/Todo/Edit" method="post">
 
     <div>
-        <input type="text" name="name" value="" placeholder="Name" />
+        <input type="text" name="name" value="@Model.Name" placeholder="Name" />
     </div>
     <br />
     <div>
-        <input type="text" name="description" value="" placeholder="Description" />
+        <input type="text" name="description" value="@Model.Description" placeholder="Description" />
     </div>
 
 

@@ -13,5 +13,6 @@ namespace AnimalFarm.Models
         public string Name { get; set; }
         public int Age { get; set; }
 
+        public ObjectId? OwnerId { get; set; } = null;
     }
 }

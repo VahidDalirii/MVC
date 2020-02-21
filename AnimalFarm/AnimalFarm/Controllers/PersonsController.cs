@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AnimalFarm.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace AnimalFarm.Controllers
 {
@@ -15,13 +16,18 @@ namespace AnimalFarm.Controllers
         {
             Database db = new Database();
             List<Person> persons = db.GetPersons();
+
             return View(persons);
         }
 
         // GET: Persons/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            Database db = new Database();
+            ObjectId personId = new ObjectId(id);
+
+            Person person = db.GetPersonById(personId);
+            return View(person);
         }
 
         // GET: Persons/Create
@@ -32,9 +38,10 @@ namespace AnimalFarm.Controllers
 
         // POST: Persons/Create
         [HttpPost]
-        public ActionResult Create(string name,string ssn)
+        public ActionResult Create(string name, string ssn)
         {
             Person person = new Person() { Name = name, SSN = ssn };
+
             Database db = new Database();
             db.SavePerson(person);
 
@@ -42,21 +49,29 @@ namespace AnimalFarm.Controllers
         }
 
         // GET: Persons/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            Database db = new Database();
+            ObjectId personId = new ObjectId(id);
+
+            Person person = db.GetPersonById(personId);
+            return View(person);
         }
 
         // POST: Persons/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, Person person)
         {
             try
             {
-                // TODO: Add update logic here
+                Database db = new Database();
+                ObjectId personId = new ObjectId(id);
+                person.Id = personId;
 
-                return RedirectToAction(nameof(Index));
+                db.UpdatePerson(person);
+
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -65,25 +80,31 @@ namespace AnimalFarm.Controllers
         }
 
         // GET: Persons/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            Database db = new Database();
+            ObjectId personId = new ObjectId(id);
+            Person person = db.GetPersonById(personId);
+
+            return View(person);
         }
 
         // POST: Persons/Delete/5
-        [HttpPost]
+        [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(string id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Database db = new Database();
+                ObjectId personId = new ObjectId(id);
+                db.DeletePersonById(personId);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Delete");
             }
         }
     }
