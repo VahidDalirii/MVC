@@ -1,0 +1,34 @@
+﻿@model List<Repository.Models.Film>
+@{
+    ViewData["Title"] = "RentFilm";
+}
+
+<h1>Renting a Film</h1>
+
+@if (TempData["textmsg"] != null)
+{
+    @Html.Raw(TempData["textmsg"])
+}
+
+<form action="" method="post">
+    <div>
+        <select name="filmId">
+            @if (Model.Count == 0)
+            {
+                <option disabled selected>No film available</option>
+            }
+
+            @foreach (var film in Model)
+            {
+                <option value="@film.Id">@film.Title - @film.Copies Copies</option>
+            }
+        </select>
+    </div>
+    <div>
+        <input type="date" name="StartDate" value="" />
+    </div>
+    <div>
+        <input type="date" name="EndDate" value="" />
+    </div>
+    <input type="submit" name="submit" value="Rent" />
+</form>

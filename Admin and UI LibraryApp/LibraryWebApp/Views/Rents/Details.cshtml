@@ -1,0 +1,52 @@
+﻿@model Repository.Models.Rent
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Rent Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Member Name:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentingMember.Name)
+        </dd>
+
+        @if (Model.RentedBook != null)
+        {
+            <dt class="col-sm-2">
+                Book Title:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RentedBook.Title)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                Film Title:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RentedFilm.Title)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Rent Date:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            Return Date:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+    </dl>
+    <a asp-action="Index">Back to List</a>
+</div>

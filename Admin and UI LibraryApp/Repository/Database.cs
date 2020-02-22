@@ -32,6 +32,12 @@ namespace Repository
             collection.InsertOne(member);
         }
 
+        internal Rent GetRentById(ObjectId id)
+        {
+            var collection = db.GetCollection<Rent>(Rents_Collection);
+            return collection.Find(r => r.Id == id).FirstOrDefault();
+        }
+
         /// <summary>
         /// Creates a book in db
         /// </summary>

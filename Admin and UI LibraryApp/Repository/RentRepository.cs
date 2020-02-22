@@ -28,6 +28,12 @@ namespace Repository
             db.DeleteRentById(id);
         }
 
+        public static Rent GetRentById(ObjectId id)
+        {
+            Database db = new Database(); ;
+            return db.GetRentById(id);
+        }
+
         /// <summary>
         /// Gets att rents from db
         /// </summary>

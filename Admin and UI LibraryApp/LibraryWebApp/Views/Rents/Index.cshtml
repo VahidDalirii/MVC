@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Repository.Models.Rent>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of all Rents</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Member
+            </th>
+            <th>
+                Item
+            </th>
+            <th>
+                Rent Date
+            </th>
+            <th>
+                Return Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingMember.Name)
+                </td>
+                @if (item.RentedBook != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentedBook.Title)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentedFilm.Title)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Go back to home", "Index","Home")

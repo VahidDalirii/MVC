@@ -1,0 +1,39 @@
+﻿@model List<Repository.Models.Book>
+@{
+    ViewData["Title"] = "RentBook";
+}
+
+<h1>Renting a Book</h1>
+
+@if (TempData["textmsg"] != null)
+{
+    @Html.Raw(TempData["textmsg"])
+}
+
+<form action="" method="post">
+    <div>
+        <select name="bookId">
+            @if (Model.Count == 0)
+            {
+                <option disabled selected>No book available</option>
+            }
+
+            @foreach (var book in Model)
+            {
+                <option value="@book.Id">@book.Title  Copies: @book.Copies</option>
+            }
+        </select>
+    </div>
+
+
+    <div>
+        <input type="date" name="StartDate" value="" />
+    </div>
+    <div>
+        <input type="date" name="EndDate" value="" />
+    </div>
+
+
+    <input type="submit" name="submit" value="Rent" class="btn btn-dark" />
+</form>
+

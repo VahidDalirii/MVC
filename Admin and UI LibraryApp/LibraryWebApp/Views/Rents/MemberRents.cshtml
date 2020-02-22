@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Repository.Models.Rent>
+
+@{
+    ViewData["Title"] = "MemberRents";
+}
+
+@if (Model.ToList().Count != 0)
+{
+    <h1>
+        @Model.ToList()[0].RentingMember.Name's Rents
+    </h1>
+}
+else 
+{
+    <h1>
+        This member has no rents
+    </h1>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Rent Item:
+            </th>
+            <th>
+                Rent Date:
+            </th>
+            <th>
+                Return Date:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (item.RentedBook != null)
+                {
+                    <td>
+                        Book: @Html.DisplayFor(modelItem => item.RentedBook.Title)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Film: @Html.DisplayFor(modelItem => item.RentedFilm.Title)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
