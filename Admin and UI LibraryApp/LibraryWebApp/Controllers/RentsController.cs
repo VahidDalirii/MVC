@@ -28,6 +28,26 @@ namespace LibraryWebApp.Controllers
             return View(rents);
         }
 
+        [Route("/Rents/BookRents/{id}")]
+        public ActionResult BookRents(string id)
+        {
+            ObjectId bookId = new ObjectId(id);
+            Book book = BookRepository.GetBookById(bookId);
+            List<Rent> rents = RentRepository.GetAllSameBookRented(book);
+
+            return View(rents);
+        }
+
+        [Route("/Rents/FilmRents/{id}")]
+        public ActionResult FilmRents(string id)
+        {
+            ObjectId filmId = new ObjectId(id);
+            Film film = FilmRepository.GetFilmById(filmId);
+            List<Rent> rents = RentRepository.GetAllSameFilmRented(film);
+
+            return View(rents);
+        }
+
         [Route("/Rents/RentBook/{id}")]
         public ActionResult RentBook(string id)
         {

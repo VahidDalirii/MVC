@@ -1,26 +1,40 @@
 ﻿@model IEnumerable<Repository.Models.Rent>
 
 @{
-    ViewData["Title"] = "MemberRents";
+    ViewData["Title"] = "Index";
 }
 
-@if (Model.ToList().Count != 0)
-{
-    <h1>
-        @Model.ToList()[0].RentingMember.Name's Rents
-    </h1>
 
+
+<style>
+    .Delete {
+        color: red
+    }
+</style>
+
+@if (Model.ToList().Count == 0)
+{
+    <h1>There is no rents registered for this Film</h1>
+}
+
+
+else
+{
+    <h1>List of all Rents of sorted by Member Name</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    Rent Item:
+                    Member
                 </th>
                 <th>
-                    Rent Date:
+                    Rented Item
                 </th>
                 <th>
-                    Return Date:
+                    Rent Date
+                </th>
+                <th>
+                    Return Date
                 </th>
                 <th></th>
             </tr>
@@ -29,6 +43,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentingMember.Name)
+                    </td>
                     @if (item.RentedBook != null)
                     {
                         <td>
@@ -49,27 +66,14 @@
                     </td>
                     <td>
                         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "Delete" })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <div>
-        @Html.ActionLink("Rent a new Book", "RentBook", "Rents", new { id = Model.ToList()[0].RentingMember.Id }) |
-        @Html.ActionLink("Rent a new Film", "RentFilm", "Rents", new { id = Model.ToList()[0].RentingMember.Id })
-    </div>
-    <div style="margin-top:5%">
-        @Html.ActionLink("Go back to Member list", "Index", "Members")
-    </div>
-}
-else
-{
-<h1>
-    This member has no rents
-</h1>
-<div style="margin-top:5%">
-    @Html.ActionLink("Go back to Member list", "Index", "Members")
-</div>
+
 }
 
+
+@Html.ActionLink("Go back to Book list", "Index", "Films")
