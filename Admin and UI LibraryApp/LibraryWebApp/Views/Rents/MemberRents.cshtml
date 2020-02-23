@@ -39,13 +39,13 @@ else
                 @if (item.RentedBook != null)
                 {
                     <td>
-                        Book: @Html.DisplayFor(modelItem => item.RentedBook.Title)
+                        [Book] @Html.DisplayFor(modelItem => item.RentedBook.Title)
                     </td>
                 }
                 else
                 {
                     <td>
-                        Film: @Html.DisplayFor(modelItem => item.RentedFilm.Title)
+                        [Film] @Html.DisplayFor(modelItem => item.RentedFilm.Title)
                     </td>
                 }
                 <td>

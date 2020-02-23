@@ -4,7 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+    <h1>List of all Books sorted by Title</h1>
+
+    <style>
+        .Delete {color: red}
+
+        .Rent {color: black}
+    </style>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -34,7 +40,8 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new {@class = "Delete"}) |
+                    @Html.ActionLink("Rent this Book", "RentBookToMember", "Rents", new { id = item.Id }, new {@class = "Rent"}) 
                 </td>
             </tr>
         }

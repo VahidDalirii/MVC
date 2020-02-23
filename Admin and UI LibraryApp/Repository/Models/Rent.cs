@@ -25,6 +25,13 @@ namespace Repository.Models
             StartDate = startDate;
             EndDate = endDate;
         }
+    }
 
+    public class SortRentsByMemberName : IComparer<Rent>
+    {
+        public int Compare(Rent x, Rent y)
+        {
+            return x.RentingMember.Name.CompareTo(y.RentingMember.Name);
+        }
     }
 }

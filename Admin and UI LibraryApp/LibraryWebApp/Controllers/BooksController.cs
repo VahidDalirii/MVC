@@ -16,6 +16,8 @@ namespace LibraryWebApp.Controllers
         public ActionResult Index()
         {
             List<Book> books = BookRepository.GetBooks();
+            Repository.Models.SortBooksByTitle sortBooksByTitle = new SortBooksByTitle();
+            books.Sort(sortBooksByTitle);
             return View(books);
         }
 

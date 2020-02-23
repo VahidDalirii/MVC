@@ -16,6 +16,8 @@ namespace LibraryWebApp.Controllers
         public ActionResult Index()
         {
             List<Film> films = FilmRepository.GetFilms();
+            Repository.Models.SortFilmsByTitle sortFilmsByTitle = new SortFilmsByTitle();
+            films.Sort(sortFilmsByTitle);
             return View(films);
         }
 

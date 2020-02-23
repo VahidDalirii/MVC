@@ -16,6 +16,8 @@ namespace LibraryWebApp.Controllers
         public ActionResult Index()
         {
             List<Member> members= MemberRepository.GetMembers();
+            Repository.Models.SortMemberByName sortMemberByName = new SortMemberByName();
+            members.Sort(sortMemberByName);
             return View(members);
         }
 

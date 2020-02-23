@@ -20,10 +20,13 @@ namespace Repository.Models
             TelNumber = telNumber;
             Password = password;
         }
+    }
 
-        public int CompareTo(Item otherMember)
+    public class SortMemberByName : IComparer<Member>
+    {
+        public int Compare(Member x, Member y)
         {
-            return this.Name.CompareTo(otherMember.Title);
+            return x.Name.CompareTo(y.Name);
         }
     }
 }
