@@ -64,13 +64,13 @@ namespace LibraryWebApp.Controllers
                 }
                 else
                 {
-                    TempData["textmsg"] = "<script>alert('You entered a date before rent's start date');</script>";
+                    TempData["textmsg"] = "<script>alert('You entered a date before rent start date. Please try a date after rent start date');</script>";
                     return View(books);
                 }
             }
             else
             {
-                TempData["textmsg"] = "<script>alert('You entered a date before today's date');</script>";
+                TempData["textmsg"] = "<script>alert('You entered a date before today date. Please try a date after today date');</script>";
                 return View(books);
             }  
         }
@@ -86,28 +86,43 @@ namespace LibraryWebApp.Controllers
         [Route("/Rents/RentFilm/{id}")]
         public ActionResult RentFilm(string id, string filmId, DateTime startDate, DateTime endDate)
         {
-            ObjectId memberId = new ObjectId(id);
-            Member member = MemberRepository.GetMemberById(memberId);
+            List<Film> films = FilmRepository.GetFilms();
 
-            ObjectId rentingFilmId = new ObjectId(filmId);
-            Film film = FilmRepository.GetFilmById(rentingFilmId);
-
-            Rent rent = new Rent(member, null, film, startDate, endDate);
-
-            if (FilmRepository.FilmIsFreeToRent(rent))
+            if (RentRepository.IsStartDateCorrect(startDate))
             {
-                
-                RentRepository.CreateRent(rent);
-                return Redirect($"/Rents/MemberRents/{id}");
+                if (RentRepository.IsEndDateCorrect(endDate,startDate))
+                {
+                    ObjectId memberId = new ObjectId(id);
+                    Member member = MemberRepository.GetMemberById(memberId);
+
+                    ObjectId rentingFilmId = new ObjectId(filmId);
+                    Film film = FilmRepository.GetFilmById(rentingFilmId);
+
+                    Rent rent = new Rent(member, null, film, startDate, endDate);
+
+                    if (FilmRepository.FilmIsFreeToRent(rent))
+                    {
+
+                        RentRepository.CreateRent(rent);
+                        return Redirect($"/Rents/MemberRents/{id}");
+                    }
+                    else
+                    {
+                        TempData["textmsg"] = "<script>alert('This film is not free to Rent in this entered date period. Please try another dates');</script>";
+                        return View(films);
+                    }
+                }
+                else
+                {
+                    TempData["textmsg"] = "<script>alert('You entered a date before rent start date. Please try a date after rent start date');</script>";
+                    return View(films);
+                }
             }
             else
             {
-                TempData["textmsg"] = "<script>alert('This film is not free to Rent in this entered date period. Please try another dates');</script>";
-                List<Film> films = FilmRepository.GetFilms();
+                TempData["textmsg"] = "<script>alert('You entered a date before today date. Please try a date after today date');</script>";
                 return View(films);
-            }
-
-            
+            }  
         }
 
         // GET: Rents/Details/5

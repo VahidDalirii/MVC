@@ -10,7 +10,7 @@
         @Model.ToList()[0].RentingMember.Name's Rents
     </h1>
 }
-else 
+else
 {
     <h1>
         This member has no rents
@@ -62,3 +62,5 @@ else
         }
     </tbody>
 </table>
+@Html.ActionLink("Rent a new Book", "RentBook", "Rents", new { id = Model.ToList()[0].RentingMember.Id}) |
+@Html.ActionLink("Rent a new Film", "RentFilm", "Rents", new { id = Model.ToList()[0].RentingMember.Id})
