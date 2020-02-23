@@ -68,25 +68,20 @@ namespace Repository
         /// </summary>
         /// <param name="book"></param>
         /// <returns>True if book if free to rent and false if not</returns>
-        public static bool BookIsFreeToRent(Book book)
+        public static bool BookIsFreeToRent(Rent rent)
         {
-            List<Rent> allRents = RentRepository.GetRents();
-            List<Rent> allSameRentedBook = RentRepository.GetAllSameBookRented(book);
+            List<Rent> allSameBookRented = RentRepository.GetAllSameBookRented(rent.RentedBook);
             int rentedCopies = 0;
-            for (int i = 0; i < allRents.Count; i++)
+
+            for (int i = 0; i < allSameBookRented.Count; i++)
             {
-                if (allRents[i].RentedBook != null && allRents[i].RentedBook.Id == book.Id)
+                if (rent.StartDate >= allSameBookRented[i].StartDate && rent.StartDate <= allSameBookRented[i].EndDate)
                 {
-                    for (int j = 0; j < allSameRentedBook.Count; j++)
-                    {
-                        if (allRents[i].StartDate >= allSameRentedBook[j].StartDate && allRents[i].StartDate <= allSameRentedBook[j].EndDate)
-                        {
-                            rentedCopies++;
-                        }
-                    }
+                    rentedCopies++;
                 }
             }
-            if (rentedCopies > book.Copies)
+
+            if (rentedCopies >= rent.RentedBook.Copies)
             {
                 return false;
             }

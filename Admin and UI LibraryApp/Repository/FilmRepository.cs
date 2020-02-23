@@ -68,25 +68,18 @@ namespace Repository
         /// </summary>
         /// <param name="film"></param>
         /// <returns>True if film if free to rent and false if not</returns>
-        public static bool FilmIsFreeToRent(Film film)
+        public static bool FilmIsFreeToRent(Rent rent)
         {
-            List<Rent> allRents = RentRepository.GetRents();
-            List<Rent> allSameRentedFilm = RentRepository.GetAllSameFilmRented(film);
+            List<Rent> allSameFilmRented = RentRepository.GetAllSameFilmRented(rent.RentedFilm);
             int rentedCopies = 0;
-            for (int i = 0; i < allRents.Count; i++)
+            for (int i = 0; i < allSameFilmRented.Count; i++)
             {
-                if (allRents[i].RentedFilm != null && allRents[i].RentedFilm.Id == film.Id)
+                if (rent.StartDate >= allSameFilmRented[i].StartDate && rent.StartDate <= allSameFilmRented[i].EndDate)
                 {
-                    for (int j = 0; j < allSameRentedFilm.Count; j++)
-                    {
-                        if (allRents[i].StartDate >= allSameRentedFilm[j].StartDate && allRents[i].StartDate <= allSameRentedFilm[j].EndDate)
-                        {
-                            rentedCopies++;
-                        }
-                    }
+                    rentedCopies++;
                 }
             }
-            if (rentedCopies > film.Copies)
+            if (rentedCopies >= rent.RentedFilm.Copies)
             {
                 return false;
             }

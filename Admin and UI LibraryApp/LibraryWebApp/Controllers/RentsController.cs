@@ -39,14 +39,15 @@ namespace LibraryWebApp.Controllers
         {
             ObjectId memberId = new ObjectId(id);
             Member member = MemberRepository.GetMemberById(memberId);
+
             ObjectId rentingBookId = new ObjectId(bookId);
             Book book = BookRepository.GetBookById(rentingBookId);
 
-            if (BookRepository.BookIsFreeToRent(book))
-            {
-                Rent rent = new Rent(member, book, null, startDate, endDate);
-                RentRepository.CreateRent(rent);
+            Rent rent = new Rent(member, book, null, startDate, endDate);
 
+            if (BookRepository.BookIsFreeToRent(rent))
+            {
+                RentRepository.CreateRent(rent);
                 return Redirect($"/Rents/MemberRents/{id}");
             }
             else
@@ -71,11 +72,15 @@ namespace LibraryWebApp.Controllers
         {
             ObjectId memberId = new ObjectId(id);
             Member member = MemberRepository.GetMemberById(memberId);
+
             ObjectId rentingFilmId = new ObjectId(filmId);
             Film film = FilmRepository.GetFilmById(rentingFilmId);
-            if (FilmRepository.FilmIsFreeToRent(film))
+
+            Rent rent = new Rent(member, null, film, startDate, endDate);
+
+            if (FilmRepository.FilmIsFreeToRent(rent))
             {
-                Rent rent = new Rent(member, null, film, startDate, endDate);
+                
                 RentRepository.CreateRent(rent);
                 return Redirect($"/Rents/MemberRents/{id}");
             }
