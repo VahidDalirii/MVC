@@ -573,61 +573,12 @@ namespace LibraryApp
                     Console.WriteLine($"{thisBookRent.RentedBook.Title} is rented from {thisBookRent.StartDate} to {thisBookRent.EndDate}");
                 }
 
-                DateTime startDate = DateTime.Now;
-                DateTime endDate = DateTime.Now;
-                while (true)
-                {
-                    int startDateResultat = 2;
-                    try
-                    {
-                        Console.Write("\nEnter rent's START DATE(yyyy,mm,dd): ");
-                        startDate = DateTime.Parse(Console.ReadLine()).Date;
-                        startDateResultat = DateTime.Compare(DateTime.Now.Date, startDate);//Checks to not enter a date before today's date
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You entered a WRONG  DATE FORMAT. Must be yyyy/mm/dd");
-                    }
-
-                    if (startDateResultat <= 0)//checks if date is in right format and start date is not before today's date
-                    {
-                        Console.WriteLine($"Rent start date is {startDate}");
-                        break;
-                    }
-                    else if (startDateResultat > 0)
-                    {
-                        Console.WriteLine("Don't Entere a date before Today's date");
-                    }
-                }
-
-                while (true)
-                {
-                    int endDateResultat = 2;
-                    try
-                    {
-                        Console.Write("\nEnter rent's END DATE(yyyy,mm,dd): ");
-                        endDate = DateTime.Parse(Console.ReadLine()).Date;
-                        endDateResultat = DateTime.Compare(endDate, startDate);//Checks to not enter an end date before start date
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You entered a WRONG  DATE FORMAT. Must be yyyy/mm/dd");
-                    }
-
-                    if (endDateResultat > 0)//checks if date is in right format and end date is not before start date
-                    {
-                        Console.WriteLine($"Rent end date is {endDate}");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Don't Entere a date before rent's start date");
-                    }
-                }
-
+                DateTime startDate = GetStartDate();
+                DateTime endDate = GetEndDate(startDate);
+                
                 Rent newRent = new Rent(rentingMember, rentingBook, null, startDate, endDate); //Creates a new rent object
 
-                if (BookRepository.BookIsFreeToRent(rentingBook))
+                if (BookRepository.BookIsFreeToRent(newRent))
                 {
                     RentRepository.CreateRent(newRent);//Inserts a rent in db
                     Console.WriteLine($"\n'{rentingMember.Name}' rented '{rentingBook.Title}' SUCCESSFULLY");
@@ -673,61 +624,12 @@ namespace LibraryApp
                     Console.WriteLine($"{thisFilmRent.RentedFilm.Title} is rented from {thisFilmRent.StartDate} to {thisFilmRent.EndDate}");
                 }
 
-                DateTime startDate = DateTime.Now;
-                DateTime endDate = DateTime.Now;
-                while (true)
-                {
-                    int startDateResultat = 2;
-                    try
-                    {
-                        Console.Write("\nEnter rent's START DATE(yyyy,mm,dd): ");
-                        startDate = DateTime.Parse(Console.ReadLine()).Date;
-                        startDateResultat = DateTime.Compare(DateTime.Now.Date, startDate);//Checks to not enter a date before today's date
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You entered a WRONG  DATE FORMAT. Must be yyyy/mm/dd");
-                    }
-
-                    if (startDateResultat <= 0)//checks if date is in right format and start date is not before today's date
-                    {
-                        Console.WriteLine($"Rent start date is {startDate}");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Don't entere a date before Today's date");
-                    }
-                }
-
-                while (true)
-                {
-                    int endDateResultat = 2;
-                    try
-                    {
-                        Console.Write("\nEnter rent's END DATE(yyyy,mm,dd): ");
-                        endDate = DateTime.Parse(Console.ReadLine()).Date;
-                        endDateResultat = DateTime.Compare(endDate, startDate);//Checks to not enter an end date before start date
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You entered a WRONG  DATE FORMAT. Must be yyyy/mm/dd");
-                    }
-
-                    if (endDateResultat > 0)//checks if date is in right format and end date is not before start date
-                    {
-                        Console.WriteLine($"Rent end date is {endDate}");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Don't Entere a date before rent's start date");
-                    }
-                }
+                DateTime startDate = GetStartDate();
+                DateTime endDate = GetEndDate(startDate);
 
                 Rent newRent = new Rent(rentingMember, null, rentingFilm, startDate, endDate);
 
-                if (FilmRepository.FilmIsFreeToRent(rentingFilm))
+                if (FilmRepository.FilmIsFreeToRent(newRent))
                 {
                     RentRepository.CreateRent(newRent);
                     Console.WriteLine($"\n'{rentingMember.Name}' rented '{rentingFilm.Title}' SUCCESSFULLY");
@@ -897,6 +799,64 @@ namespace LibraryApp
             }
 
             return rents;
+        }
+
+        private DateTime GetEndDate(DateTime startDate)
+        {
+            DateTime endDate = DateTime.Now;
+            while (true)
+            {
+                int endDateResultat = -2;
+                try
+                {
+                    Console.Write("\nEnter rent's END DATE(yyyy,mm,dd): ");
+                    endDate = DateTime.Parse(Console.ReadLine()).Date;
+                    endDateResultat = DateTime.Compare(endDate, startDate);//Checks to not enter an end date before start date
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("You entered a WRONG  DATE FORMAT. Must be yyyy/mm/dd");
+                }
+
+                if (endDateResultat > 0)//checks if date is in right format and end date is not before start date
+                {
+                    Console.WriteLine($"Rent end date is {endDate}");
+                    return endDate;
+                }
+                else
+                {
+                    Console.WriteLine("Don't Entere a date before rent's start date");
+                }
+            }
+        }
+
+        private DateTime GetStartDate()
+        {
+            DateTime startDate = DateTime.Now;
+            while (true)
+            {
+                int startDateResultat = 2;
+                try
+                {
+                    Console.Write("\nEnter rent's START DATE(yyyy,mm,dd): ");
+                    startDate = DateTime.Parse(Console.ReadLine()).Date;
+                    startDateResultat = DateTime.Compare(DateTime.Now.Date, startDate);//Checks to not enter a date before today's date
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("You entered a WRONG  DATE FORMAT. Must be yyyy/mm/dd");
+                }
+
+                if (startDateResultat <= 0)//checks if date is in right format and start date is not before today's date
+                {
+                    Console.WriteLine($"Rent start date is {startDate}");
+                    return startDate;
+                }
+                else if (startDateResultat > 0)
+                {
+                    Console.WriteLine("Don't Entere a date before Today's date");
+                }
+            }
         }
 
         /// <summary>

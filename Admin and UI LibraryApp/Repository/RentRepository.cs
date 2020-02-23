@@ -93,5 +93,26 @@ namespace Repository
             return myRents;
         }
 
+        public static bool IsStartDateCorrect(DateTime startDate)
+        {
+            int startDateResultat = DateTime.Compare(DateTime.Now.Date, startDate);
+
+            if (startDateResultat <= 0)//checks if date is in right format and start date is not before today's date
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool IsEndDateCorrect(DateTime endDate, DateTime startDate)
+        {
+            int endDateResultat = DateTime.Compare(endDate, startDate);//Checks to not enter an end date before start date
+
+            if (endDateResultat > 0)//checks if date is in right format and end date is not before start date
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

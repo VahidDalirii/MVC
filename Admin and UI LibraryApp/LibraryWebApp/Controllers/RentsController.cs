@@ -37,26 +37,42 @@ namespace LibraryWebApp.Controllers
         [Route("/Rents/RentBook/{id}")]
         public ActionResult RentBook(string id, string bookId, DateTime startDate, DateTime endDate)
         {
-            ObjectId memberId = new ObjectId(id);
-            Member member = MemberRepository.GetMemberById(memberId);
+            List<Book> books = BookRepository.GetBooks();
 
-            ObjectId rentingBookId = new ObjectId(bookId);
-            Book book = BookRepository.GetBookById(rentingBookId);
-
-            Rent rent = new Rent(member, book, null, startDate, endDate);
-
-            if (BookRepository.BookIsFreeToRent(rent))
+            if (RentRepository.IsStartDateCorrect(startDate))
             {
-                RentRepository.CreateRent(rent);
-                return Redirect($"/Rents/MemberRents/{id}");
+                if (RentRepository.IsEndDateCorrect(endDate,startDate))
+                {
+                    ObjectId memberId = new ObjectId(id);
+                    Member member = MemberRepository.GetMemberById(memberId);
+
+                    ObjectId rentingBookId = new ObjectId(bookId);
+                    Book book = BookRepository.GetBookById(rentingBookId);
+
+                    Rent rent = new Rent(member, book, null, startDate, endDate);
+
+                    if (BookRepository.BookIsFreeToRent(rent))
+                    {
+                        RentRepository.CreateRent(rent);
+                        return Redirect($"/Rents/MemberRents/{id}");
+                    }
+                    else
+                    {
+                        TempData["textmsg"] = "<script>alert('This book is not free to Rent in this entered date period. Please try another dates');</script>";
+                        return View(books);
+                    }
+                }
+                else
+                {
+                    TempData["textmsg"] = "<script>alert('You entered a date before rent's start date');</script>";
+                    return View(books);
+                }
             }
             else
             {
-                TempData["textmsg"] = "<script>alert('This book is not free to Rent in this entered date period. Please try another dates');</script>";
-                List<Book> books = BookRepository.GetBooks();
+                TempData["textmsg"] = "<script>alert('You entered a date before today's date');</script>";
                 return View(books);
-            }
-            
+            }  
         }
 
         [Route("/Rents/RentFilm/{id}")]
