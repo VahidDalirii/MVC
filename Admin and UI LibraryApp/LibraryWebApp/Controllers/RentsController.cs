@@ -12,7 +12,10 @@ namespace LibraryWebApp.Controllers
 {
     public class RentsController : Controller
     {
-        // GET: Rents
+        /// <summary>
+        /// Gets a list of all rents from db, sorts the list by member name and returns to view
+        /// </summary>
+        /// <returns>a list of all rents</returns>
         public ActionResult Index()
         {
             List<Rent> rents = RentRepository.GetRents();
@@ -21,6 +24,11 @@ namespace LibraryWebApp.Controllers
             return View(rents);
         }
 
+        /// <summary>
+        /// Gets all rents of a member by member id from db and returns to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult MemberRents(string id)
         {
             ObjectId memberId = new ObjectId(id);
@@ -28,6 +36,12 @@ namespace LibraryWebApp.Controllers
             return View(rents);
         }
 
+
+        /// <summary>
+        /// Gets a list of all rents of a book by book id from db, sorts the list and returns to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A list of all rents of a book</returns>
         [Route("/Rents/BookRents/{id}")]
         public ActionResult BookRents(string id)
         {
@@ -38,6 +52,11 @@ namespace LibraryWebApp.Controllers
             return View(rents);
         }
 
+        /// <summary>
+        /// Gets a list of all rents of a film by film id from db, sorts the list and returns to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("/Rents/FilmRents/{id}")]
         public ActionResult FilmRents(string id)
         {
@@ -48,6 +67,12 @@ namespace LibraryWebApp.Controllers
             return View(rents);
         }
 
+
+        /// <summary>
+        /// Gets a list of all books from db, sorts the list and returns to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A list of all </returns>
         [Route("/Rents/RentBook/{id}")]
         public ActionResult RentBook(string id)
         {
@@ -57,6 +82,14 @@ namespace LibraryWebApp.Controllers
             return View(books);
         }
 
+        /// <summary>
+        /// Gets value of all rent object, checks the dates and creates a rent if all is correct
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="bookId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns>If dates are not correct return a list of books to view</returns>
         [HttpPost]
         [Route("/Rents/RentBook/{id}")]
         public ActionResult RentBook(string id, string bookId, DateTime startDate, DateTime endDate)
@@ -101,6 +134,11 @@ namespace LibraryWebApp.Controllers
             }  
         }
 
+
+        /// <summary>
+        /// Gets a list of all films, sorts the list and returns to view
+        /// </summary>
+        /// <returns>A list of films</returns>
         [Route("/Rents/RentFilm/{id}")]
         public ActionResult RentFilm()
         {
@@ -110,6 +148,14 @@ namespace LibraryWebApp.Controllers
             return View(films);
         }
 
+        /// <summary>
+        /// Gets value of all rent object, checks the dates and creates a rent if all is correct
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="filmId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns>If dates are not correct return a list of films to view</returns>
         [HttpPost]
         [Route("/Rents/RentFilm/{id}")]
         public ActionResult RentFilm(string id, string filmId, DateTime startDate, DateTime endDate)
@@ -155,6 +201,11 @@ namespace LibraryWebApp.Controllers
             }  
         }
 
+
+        /// <summary>
+        /// Gets a list of all members from db, sorts the list and returns to view
+        /// </summary>
+        /// <returns> a list of all members </returns>
         [Route("/Rents/RentBookToMember/{id}")]
         public ActionResult RentBookToMember()
         {
@@ -164,6 +215,15 @@ namespace LibraryWebApp.Controllers
             return View(members);
         }
 
+
+        /// <summary>
+        /// Gets value of all rent object, checks the dates and creates a rent if all is correct
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="memberId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns>If dates are not correct return a list of members to view</returns>
         [HttpPost]
         [Route("/Rents/RentBookToMember/{id}")]
         public ActionResult RentBookToMember(string id, string memberId, DateTime startDate, DateTime endDate)
@@ -208,6 +268,11 @@ namespace LibraryWebApp.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Gets a list of all members from db, sorts the list and returns to view
+        /// </summary>
+        /// <returns> a list of all members </returns>
         [Route("/Rents/RentFilmToMember/{id}")]
         public ActionResult RentFilmToMember()
         {
@@ -217,6 +282,14 @@ namespace LibraryWebApp.Controllers
             return View(members);
         }
 
+        /// <summary>
+        /// Gets value of all rent object, checks the dates and creates a rent if all is correct
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="memberId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns>If dates are not correct return a list of members to view</returns>
         [HttpPost]
         [Route("/Rents/RentFilmToMember/{id}")]
         public ActionResult RentFilmToMember(string id, string memberId, DateTime startDate, DateTime endDate)
@@ -261,7 +334,11 @@ namespace LibraryWebApp.Controllers
             }
         }
 
-        // GET: Rents/Details/5
+        /// <summary>
+        /// Gets a rent by rent id from db and returns to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A rent as an object</returns>
         public ActionResult Details(string id)
         {
             ObjectId retnId = new ObjectId(id);
@@ -269,7 +346,11 @@ namespace LibraryWebApp.Controllers
             return View(rent);
         }
 
-        // GET: Rents/Delete/5
+        /// <summary>
+        /// Gets a rent by id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A rent as an object</returns>
         public ActionResult Delete(string id)
         {
             ObjectId retnId = new ObjectId(id);
@@ -277,7 +358,11 @@ namespace LibraryWebApp.Controllers
             return View(rent);
         }
 
-        // POST: Rents/Delete/5
+        /// <summary>
+        /// Deletes a rent by rent id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>To index</returns>
         [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

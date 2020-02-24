@@ -12,7 +12,10 @@ namespace LibraryWebApp.Controllers
 {
     public class MembersController : Controller
     {
-        // GET: Members
+        /// <summary>
+        /// Gets all members from db, sorts the list and returns the list to view
+        /// </summary>
+        /// <returns>A list of members</returns>
         public ActionResult Index()
         {
             List<Member> members= MemberRepository.GetMembers();
@@ -21,7 +24,11 @@ namespace LibraryWebApp.Controllers
             return View(members);
         }
 
-        // GET: Members/Details/5
+        /// <summary>
+        /// Gets a member by id from db and returns to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A member</returns>
         public ActionResult Details(string id)
         {
             ObjectId memberId = new ObjectId(id);
@@ -29,23 +36,51 @@ namespace LibraryWebApp.Controllers
             return View(member);
         }
 
-        // GET: Members/Create
+        /// <summary>
+        /// Show a cretae form
+        /// </summary>
+        /// <returns>The form view</returns>
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Members/Create
+         
+        /// <summary>
+        /// Gets all value of a member object and creates in db
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="address"></param>
+        /// <param name="telNumber"></param>
+        /// <param name="password"></param>
+        /// <returns>To index</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string name, string address, string telNumber, string password)
         {
             try
             {
-                Member member = new Member(name, address, telNumber, password);
-                MemberRepository.CreateMember(member);
+                if (MemberRepository.IfNameIsUnique(name))
+                {
+                    if (password!=null)
+                    {
+                        Member member = new Member(name, address, telNumber, password);
+                        MemberRepository.CreateMember(member);
 
-                return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["textmsg"] = "<script>alert('You have to select a password');</script>";
+                        return View();
+                    }  
+                }
+                else
+                {
+                    TempData["textmsg"] = "<script>alert('This name already exists as a member. Please try another name');</script>";
+                    return View();
+                }
+                
             }
             catch
             {
@@ -53,7 +88,11 @@ namespace LibraryWebApp.Controllers
             }
         }
 
-        // GET: Members/Edit/5
+        /// <summary>
+        /// Gets a member by id from db and returns it to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A member as an object</returns>
         public ActionResult Edit(string id)
         {
             ObjectId memberId = new ObjectId(id);
@@ -61,7 +100,15 @@ namespace LibraryWebApp.Controllers
             return View(member);
         }
 
-        // POST: Members/Edit/5
+        /// <summary>
+        /// gets new value of member and updates it in db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="address"></param>
+        /// <param name="telNumber"></param>
+        /// <param name="password"></param>
+        /// <returns>Index</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, string name, string address, string telNumber, string password)
@@ -81,7 +128,11 @@ namespace LibraryWebApp.Controllers
             }
         }
 
-        // GET: Members/Delete/5
+        /// <summary>
+        /// Gets a member from db and returns it to view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(string id)
         {
             ObjectId memberId = new ObjectId(id);
@@ -89,7 +140,11 @@ namespace LibraryWebApp.Controllers
             return View(member);
         }
 
-        // POST: Members/Delete/5
+        /// <summary>
+        /// Deletes the member from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>to index</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

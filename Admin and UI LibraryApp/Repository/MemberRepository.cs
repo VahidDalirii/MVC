@@ -71,5 +71,23 @@ namespace Repository
             return db.GetMemberById(id);
         }
 
+        /// <summary>
+        /// Checks if new name to register is unique in db
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>returns true if name is unique in db and flase if not</returns>
+        public static bool IfNameIsUnique(string name)
+        {
+            List<Member> members = MemberRepository.GetMembers();
+            foreach (Member member in members)
+            {
+                if (member.Name.ToLower() == name.ToLower())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
     }
 }

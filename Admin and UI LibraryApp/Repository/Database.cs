@@ -32,6 +32,11 @@ namespace Repository
             collection.InsertOne(member);
         }
 
+        /// <summary>
+        /// Gets a rent by id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A rent by rent id</returns>
         internal Rent GetRentById(ObjectId id)
         {
             var collection = db.GetCollection<Rent>(Rents_Collection);
@@ -113,12 +118,22 @@ namespace Repository
             return collection.Find(b => true).ToList();
         }
 
+        /// <summary>
+        /// Gets a book by id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A book by book id</returns>
         internal Book GetBookById(ObjectId id)
         {
             var collection = db.GetCollection<Book>(Books_Collection);
             return collection.Find(b => b.Id == id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets a film by id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A film by film id</returns>
         internal Film GetFilmById(ObjectId id)
         {
             var collection = db.GetCollection<Film>(Films_Collection);
@@ -230,7 +245,7 @@ namespace Repository
         }
 
         /// <summary>
-        /// Gets a updated member and updates member in db
+        /// Gets an updated member and updates member in db
         /// </summary>
         /// <param name="updatedMember"></param>
         public void UpdateMember(Member updatedMember)
@@ -245,6 +260,10 @@ namespace Repository
             collection.UpdateOne(m=> m.Id==updatedMember.Id, update);
         }
 
+        /// <summary>
+        /// Gets an update book and updates book in db
+        /// </summary>
+        /// <param name="book"></param>
         internal void UpdateBook(Book book)
         {
             var collection = db.GetCollection<Book>(Books_Collection);
@@ -257,6 +276,10 @@ namespace Repository
             collection.UpdateOne(b => b.Id == book.Id, update);
         }
 
+        /// <summary>
+        /// Gets an update film and updates film in db
+        /// </summary>
+        /// <param name="film"></param>
         internal void UpdateFilm(Film film)
         {
             var collection = db.GetCollection<Film>(Films_Collection);

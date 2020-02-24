@@ -29,6 +29,11 @@ namespace Repository
             return allFilms;
         }
 
+        /// <summary>
+        /// gets a film by id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A film</returns>
         public static Film GetFilmById(ObjectId id)
         {
             Database db = new Database();
@@ -57,6 +62,10 @@ namespace Repository
             db.DeleteFilmById(id);
         }
 
+        /// <summary>
+        /// Gets a film with new values as an argument and updates it in db 
+        /// </summary>
+        /// <param name="film"></param>
         public static void UpdateFilm(Film film)
         {
             Database db = new Database();

@@ -28,6 +28,11 @@ namespace Repository
             db.DeleteRentById(id);
         }
 
+        /// <summary>
+        /// Gets a rent by rent id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A rent as an object</returns>
         public static Rent GetRentById(ObjectId id)
         {
             Database db = new Database(); ;
@@ -93,6 +98,11 @@ namespace Repository
             return myRents;
         }
 
+        /// <summary>
+        /// Gets a date as an argument and checks if date is not befor today's date
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <returns>True if is correct</returns>
         public static bool IsStartDateCorrect(DateTime startDate)
         {
             int startDateResultat = DateTime.Compare(DateTime.Now.Date, startDate);
@@ -104,6 +114,12 @@ namespace Repository
             return false;
         }
 
+        /// <summary>
+        /// Gets 2 dates and checks if the first date is not before second date
+        /// </summary>
+        /// <param name="endDate"></param>
+        /// <param name="startDate"></param>
+        /// <returns></returns>
         public static bool IsEndDateCorrect(DateTime endDate, DateTime startDate)
         {
             int endDateResultat = DateTime.Compare(endDate, startDate);//Checks to not enter an end date before start date

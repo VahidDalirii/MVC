@@ -29,6 +29,11 @@ namespace Repository
             return allBooks;
         }
 
+        /// <summary>
+        /// Gets a book by book id from db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A book by book id</returns>
         public static Book GetBookById(ObjectId id)
         {
             Database db = new Database();
@@ -57,6 +62,10 @@ namespace Repository
             db.DeleteBookById(id);
         }
 
+        /// <summary>
+        /// Gets an update book and send it to db
+        /// </summary>
+        /// <param name="book"></param>
         public static void UpdateBook(Book book)
         {
             Database db = new Database();

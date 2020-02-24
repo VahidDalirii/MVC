@@ -4,6 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
+@if (TempData["textmsg"] != null)
+{
+    @Html.Raw(TempData["textmsg"])
+}
+
 <h1>Create</h1>
 
 <h4>Member</h4>

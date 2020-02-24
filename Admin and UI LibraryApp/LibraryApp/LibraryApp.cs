@@ -405,7 +405,7 @@ namespace LibraryApp
             {
                 Console.Write("Enter USER NAME(user name must be unique): ");
                 name = Console.ReadLine();
-                if (name.Length!=0 && IfNameIsUnique(name))
+                if (name.Length!=0 && MemberRepository.IfNameIsUnique(name))
                 {
                     break;
                 }
@@ -801,6 +801,11 @@ namespace LibraryApp
             return rents;
         }
 
+        /// <summary>
+        /// Gets a date and 
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <returns></returns>
         private DateTime GetEndDate(DateTime startDate)
         {
             DateTime endDate = DateTime.Now;
@@ -830,6 +835,10 @@ namespace LibraryApp
             }
         }
 
+        /// <summary>
+        /// Gets a date, checks if is correct and returns it
+        /// </summary>
+        /// <returns>A date</returns>
         private DateTime GetStartDate()
         {
             DateTime startDate = DateTime.Now;
@@ -859,23 +868,7 @@ namespace LibraryApp
             }
         }
 
-        /// <summary>
-        /// Checks if new name to register is unique in db
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns>returns true if name is unique in db and flase if not</returns>
-        private bool IfNameIsUnique(string name)
-        {
-            List<Member> members = MemberRepository.GetMembers();
-            foreach (Member member in members)
-            {
-                if (member.Name.ToLower()==name.ToLower())
-                {
-                    return false;
-                } 
-            }
-            return true;
-        }
+        
 
         /// <summary>
         /// Goes back to Start menu
