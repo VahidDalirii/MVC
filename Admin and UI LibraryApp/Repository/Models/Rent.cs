@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Repository.Models
@@ -13,10 +14,12 @@ namespace Repository.Models
         public Book RentedBook { get; set; }
         public Film RentedFilm { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
-
+        
         public Rent(Member rentingMember, Book rentedBook, Film rentedfilm, DateTime startDate, DateTime endDate)
         {
             RentingMember = rentingMember;
