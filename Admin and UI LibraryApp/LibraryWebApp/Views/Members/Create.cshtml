@@ -9,16 +9,17 @@
     @Html.Raw(TempData["textmsg"])
 }
 
-<h1>Create</h1>
-
-<h4>Member</h4>
+<h1>Create a new Member</h1>
 <hr />
+<p>* obligatory</p>
+<hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">*User name(Must be uniqu)</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -33,7 +34,7 @@
                 <span asp-validation-for="TelNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">*Password</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
