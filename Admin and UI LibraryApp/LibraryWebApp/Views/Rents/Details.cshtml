@@ -11,7 +11,7 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            Member Name:
+            Member Name
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RentingMember.Name)
@@ -20,7 +20,7 @@
         @if (Model.RentedBook != null)
         {
             <dt class="col-sm-2">
-                Book Title:
+                Book Title
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.RentedBook.Title)
@@ -29,20 +29,20 @@
         else
         {
             <dt class="col-sm-2">
-                Film Title:
+                Film Title
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.RentedFilm.Title)
             </dd>
         }
         <dt class="col-sm-2">
-            Rent Date:
+            Rent Date
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
         <dt class="col-sm-2">
-            Return Date:
+            Return Date
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EndDate)

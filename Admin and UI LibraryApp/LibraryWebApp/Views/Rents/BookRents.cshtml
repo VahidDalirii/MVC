@@ -20,15 +20,12 @@
 
 else
 {
-    <h1>List of all Rents of sorted by Member Name</h1>
+    <h1>List of all Rents of the "@Model.ToList()[0].RentedBook.Title" sorted by Member Name</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>
                     Member
-                </th>
-                <th>
-                    Rented Item
                 </th>
                 <th>
                     Rent Date
@@ -46,18 +43,6 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.RentingMember.Name)
                     </td>
-                    @if (item.RentedBook != null)
-                    {
-                        <td>
-                            [Book] @Html.DisplayFor(modelItem => item.RentedBook.Title)
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            [Film] @Html.DisplayFor(modelItem => item.RentedFilm.Title)
-                        </td>
-                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.StartDate)
                     </td>
