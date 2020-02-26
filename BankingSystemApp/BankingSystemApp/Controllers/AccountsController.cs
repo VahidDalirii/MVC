@@ -14,16 +14,19 @@ namespace BankingSystemApp.Controllers
         private readonly Database db = new Database();
 
         // GET: Accounts
-        public ActionResult Index(ObjectId id)
+        public ActionResult Index(string id)
         {
-            List<Account> Accounts = db.GetAccountsByCustomerId(id);
+            ObjectId customerId = new ObjectId(id);
+            List<Account> Accounts = db.GetAccountsByCustomerId(customerId);
             return View(Accounts);
         }
 
         // GET: Accounts/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            ObjectId accountId = new ObjectId(id);
+            Account account = db.GetAccountById(accountId);
+            return View(account);
         }
 
         // GET: Accounts/Create
@@ -35,11 +38,12 @@ namespace BankingSystemApp.Controllers
         // POST: Accounts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ObjectId id, Account account)
+        public ActionResult Create(string id, Account account)
         {
             try
             {
-                account.CustomerId = id;
+                ObjectId accountId = new ObjectId(id);
+                account.CustomerId = accountId;
                 db.SaveAccount(account);
 
                 return RedirectToAction("Index");
@@ -51,7 +55,7 @@ namespace BankingSystemApp.Controllers
         }
 
         // GET: Accounts/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
         }
@@ -59,11 +63,12 @@ namespace BankingSystemApp.Controllers
         // POST: Accounts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, Account account)
         {
             try
             {
-                // TODO: Add update logic here
+                ObjectId accountId = new ObjectId(id);
+                account.Id = accountId;
 
                 return RedirectToAction(nameof(Index));
             }
