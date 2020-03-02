@@ -12,14 +12,21 @@ namespace CustomerListWebApp.Controllers
 {
     public class CustomersController : Controller
     {
-        // GET: Customers
+        /// <summary>
+        /// Gets a list of customers and returns to index view
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             List<Customer> customers = CustomerRepository.GetCustomers();
             return View(customers);
         }
 
-        // GET: Customers/Details/5
+        /// <summary>
+        /// Gets an customer by id and returns to details view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             ObjectId customerId = new ObjectId(id);
@@ -27,29 +34,54 @@ namespace CustomerListWebApp.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Create
+        /// <summary>
+        /// Shows the create view
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        /// <summary>
+        /// Gets all customers values from user and send to save in db(checks to have name and telnumber and not already exists in db)
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string name, string telNumber, string notes)
+        public ActionResult Create(Customer customer)
         {
             try
             {
-                Customer customer = new Customer()
+                if (customer.Name!=null)
                 {
-                    Name = name,
-                    TelNumber = telNumber,
-                    Notes = notes
-                };
+                    if (customer.TelNumber!=null)
+                    {
+                        if (CustomerRepository.IsCustomerUnique(customer))
+                        {
+                            CustomerRepository.CreateCustomer(customer);
 
-                CustomerRepository.CreateCustomer(customer);
-
-                return RedirectToAction("Index");
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            TempData["textmsg"] = "<script>alert('A customer with same Name and Telnumber already exists');</script>";
+                            return View();
+                        }
+                    }
+                    else
+                    {
+                        TempData["textmsg"] = "<script>alert('You have to enter a Telnumber. Please try again');</script>";
+                        return View();
+                    }
+                }
+                else
+                {
+                    TempData["textmsg"] = "<script>alert('You have to enter a Name. Please try again');</script>";
+                    return View();
+                }
+                
             }
             catch
             {
@@ -57,7 +89,11 @@ namespace CustomerListWebApp.Controllers
             }
         }
 
-        // GET: Customers/Edit/5
+        /// <summary>
+        /// Gets a customer by id and returns to edit view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(string id)
         {
             ObjectId customerId = new ObjectId(id);
@@ -65,7 +101,12 @@ namespace CustomerListWebApp.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
+        /// <summary>
+        /// Gets an updated customer and sends to db to update 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, Customer customer)
@@ -76,7 +117,7 @@ namespace CustomerListWebApp.Controllers
                 customer.Id = customerId;
                 CustomerRepository.UpdateCustomer(customer);
 
-                return RedirectToAction("Details", new { id=id});
+                return RedirectToAction("Details", new { id = id });
             }
             catch
             {
@@ -84,7 +125,11 @@ namespace CustomerListWebApp.Controllers
             }
         }
 
-        // GET: Customers/Delete/5
+        /// <summary>
+        /// Gets a customer by id and send to view to confirmation
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(string id)
         {
             ObjectId customerId = new ObjectId(id);
@@ -92,7 +137,11 @@ namespace CustomerListWebApp.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
+        /// <summary>
+        /// Gets a confirmed delete customer and send to db to delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
@@ -103,7 +152,9 @@ namespace CustomerListWebApp.Controllers
                 ObjectId customerId = new ObjectId(id);
                 CustomerRepository.DeleteCustomerById(customerId);
 
-                return RedirectToAction(nameof(Index));
+                OrderRepository.DeleteOrdersByCustomerId(customerId);
+
+                return RedirectToAction("Index");
             }
             catch
             {

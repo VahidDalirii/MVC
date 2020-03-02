@@ -9,7 +9,7 @@ namespace Repository.Models
     {
         public ObjectId Id { get; set; }
         public string Title { get; set; }
-        public int Cost { get; set; }
+        public string Cost { get; set; }
         public ObjectId CustomerId { get; set; }
 
     }

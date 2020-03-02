@@ -6,7 +6,9 @@ namespace CustomerListApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CustomerListApplication app = new CustomerListApplication();
+
+            app.Start();
         }
     }
 }

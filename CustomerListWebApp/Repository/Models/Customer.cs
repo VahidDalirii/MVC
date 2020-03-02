@@ -11,6 +11,5 @@ namespace Repository.Models
         public string Name { get; set; }
         public string TelNumber { get; set; }
         public string Notes { get; set; }
-        public List<ObjectId> Oders { get; set; }
     }
 }
