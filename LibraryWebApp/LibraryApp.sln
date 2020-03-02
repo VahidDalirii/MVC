@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "UserInterface\UserInterface.csproj", "{67A95424-3312-4800-A55A-96CA5781797D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryWebApp", "LibraryWebApp\LibraryWebApp.csproj", "{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryWebApp", "LibraryWebApp\LibraryWebApp.csproj", "{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{F6DE3785-585D-4C69-A4B9-0AA42E005FAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DE3785-585D-4C69-A4B9-0AA42E005FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DE3785-585D-4C69-A4B9-0AA42E005FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DE3785-585D-4C69-A4B9-0AA42E005FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DE3785-585D-4C69-A4B9-0AA42E005FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,35 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BankingSystemApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Repository;
+using Repository.Models;
 
-namespace BankingSystemApp.Controllers
+namespace CustomerListWebApp.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly Database db = new Database();
-
         // GET: Customers
-        public ActionResult Index(string ssn, string password,string customerType)
+        public ActionResult Index()
         {
-            //Customer customer = db.GetCustomerBySsn(ssn);
-            //if (customer!=null && customer.Password == password && customerType == "Admin" && customerType==customer.Type)
-            //{
-                List<Customer> customers = db.GetCustomers();
-                return View(customers);
-            //}
-
-            //return Redirect("/Home/Index");
+            List<Customer> customers = CustomerRepository.GetCustomers();
+            return View(customers);
         }
 
         // GET: Customers/Details/5
         public ActionResult Details(string id)
         {
             ObjectId customerId = new ObjectId(id);
-            Customer customer = db.GetCustomewrById(customerId);
+            Customer customer = CustomerRepository.GetCustomerById(customerId);
             return View(customer);
         }
 
@@ -43,12 +36,20 @@ namespace BankingSystemApp.Controllers
         // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer)
+        public ActionResult Create(string name, string telNumber, string notes)
         {
             try
             {
-                db.SaveCustomer(customer);
-                return RedirectToAction($"Index");
+                Customer customer = new Customer()
+                {
+                    Name = name,
+                    TelNumber = telNumber,
+                    Notes = notes
+                };
+
+                CustomerRepository.CreateCustomer(customer);
+
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -60,7 +61,7 @@ namespace BankingSystemApp.Controllers
         public ActionResult Edit(string id)
         {
             ObjectId customerId = new ObjectId(id);
-            Customer customer = db.GetCustomewrById(customerId);
+            Customer customer = CustomerRepository.GetCustomerById(customerId);
             return View(customer);
         }
 
@@ -72,8 +73,10 @@ namespace BankingSystemApp.Controllers
             try
             {
                 ObjectId customerId = new ObjectId(id);
-                db.EditCustomer(customerId, customer);
-                return RedirectToAction("Index");
+                customer.Id = customerId;
+                CustomerRepository.UpdateCustomer(customer);
+
+                return RedirectToAction("Details", new { id=id});
             }
             catch
             {
@@ -85,7 +88,7 @@ namespace BankingSystemApp.Controllers
         public ActionResult Delete(string id)
         {
             ObjectId customerId = new ObjectId(id);
-            Customer customer = db.GetCustomewrById(customerId);
+            Customer customer = CustomerRepository.GetCustomerById(customerId);
             return View(customer);
         }
 
@@ -98,8 +101,9 @@ namespace BankingSystemApp.Controllers
             try
             {
                 ObjectId customerId = new ObjectId(id);
-                db.DeleteCustomerById(customerId);
-                return RedirectToAction("Index");
+                CustomerRepository.DeleteCustomerById(customerId);
+
+                return RedirectToAction(nameof(Index));
             }
             catch
             {

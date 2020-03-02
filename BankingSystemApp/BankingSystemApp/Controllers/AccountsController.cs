@@ -42,11 +42,11 @@ namespace BankingSystemApp.Controllers
         {
             try
             {
-                ObjectId accountId = new ObjectId(id);
-                account.CustomerId = accountId;
+                ObjectId customerId = new ObjectId(id);
+                account.CustomerId = customerId;
                 db.SaveAccount(account);
 
-                return RedirectToAction("Index");
+                return Redirect($"/Index/{id}");
             }
             catch
             {
