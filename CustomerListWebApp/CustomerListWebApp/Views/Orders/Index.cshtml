@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Repository.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (Model.ToList().Count == 0)
+{
+    <h1>There is no Order registered </h1>
+
+    <p>
+        <a asp-action="CreateOrder">Create New Order</a>
+    </p>
+}
+else
+{
+    <h1>List of all registered Orders</h1>
+
+    <p>
+        <a asp-action="CreateOrder">Create New Order</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cost)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Ordered Customer", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</div>

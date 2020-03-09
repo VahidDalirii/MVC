@@ -14,19 +14,16 @@ namespace BankingSystemApp.Controllers
         private readonly Database db = new Database();
 
         // GET: Customers
-        public ActionResult Index(string ssn, string password)
+        public ActionResult Index(string ssn, string password,string customerType)
         {
             //Customer customer = db.GetCustomerBySsn(ssn);
-            //if (customer.Password == password/* && Request.Form["customer"].ToString() == "Admin"*/)
+            //if (customer!=null && customer.Password == password && customerType == "Admin" && customerType==customer.Type)
             //{
-            //    List<Customer> customers = db.GetCustomers();
-            //    return View(customers);
+                List<Customer> customers = db.GetCustomers();
+                return View(customers);
             //}
 
             //return Redirect("/Home/Index");
-
-            List<Customer> customers = db.GetCustomers();
-            return View(customers);
         }
 
         // GET: Customers/Details/5
@@ -95,7 +92,8 @@ namespace BankingSystemApp.Controllers
         // POST: Customers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, Customer customer)
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(string id)
         {
             try
             {

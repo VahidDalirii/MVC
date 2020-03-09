@@ -6,13 +6,20 @@
         <div>
             <label for="customer">Choose customer type:</label>
 
-            <select id="customer">
+            <select name="customerType">
                 <option value="Admin">Admin</option>
                 <option value="User">User</option>
             </select>
-
-            <input type="text" name="ssn" value="" placeholder="SSN" />
-            <input type="text" name="password" value="" placeholder="Password" />
+        </div>
+        <div class="col-md-4">
+            <div>
+                <input type="text" name="ssn" value="" placeholder="SSN" class="form-control" />
+            </div>
+            <div>
+                <input type="text" name="password" value="" placeholder="Password" class="form-control" />
+            </div>
+        </div class="col-md-4">
+        <div>    
             <input type="submit" name="submit" value="Login" />
         </div>
     </form>

@@ -91,15 +91,10 @@ namespace TodoList.Controllers
         /// <param name="priority"></param>
         /// <returns>Redirects to todos list</returns>
         [HttpPost]
-        public IActionResult Create(string name, string description, string priority)
+        public IActionResult Create(Todo todo)
         {
             Database db = new Database();
-            db.SaveTodo(new Todo()
-            {
-                Name = name,
-                Description = description,
-                Priority = priority
-            });
+            db.SaveTodo(todo);
             return Redirect("/Todo");
         }
 

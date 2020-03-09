@@ -29,6 +29,12 @@ namespace BankingSystemApp
             return customer;
         }
 
+        internal Account GetAccountById(ObjectId id)
+        {
+            var collection = db.GetCollection<Account>(ACCOUNTS_COLLECTION);
+            return collection.Find(a => a.Id == id).FirstOrDefault();
+        }
+
         internal List<Customer> GetCustomers()
         {
             var collection = db.GetCollection<Customer>(CUSTOMERS_COLLECTION);

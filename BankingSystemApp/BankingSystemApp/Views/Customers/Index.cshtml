@@ -42,13 +42,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-            @Html.ActionLink("Create Account", "Create", "Accounts", new { id = item.Id })
-        </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Show Accounts", "Index", "Accounts", new { id = item.Id })
+                @Html.ActionLink("Create Account", "Create", "Accounts", new { id = item.Id })
+            </td>
         </tr>
 }
     </tbody>
 </table>
+
+@Html.ActionLink("Log out","Index","Home")

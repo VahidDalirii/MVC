@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "UserInterface\UserInterface.csproj", "{67A95424-3312-4800-A55A-96CA5781797D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryWebApp", "LibraryWebApp\LibraryWebApp.csproj", "{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryWebApp", "LibraryWebApp\LibraryWebApp.csproj", "{9F0B5C25-F186-4454-80F8-EBB97A1AB05F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
