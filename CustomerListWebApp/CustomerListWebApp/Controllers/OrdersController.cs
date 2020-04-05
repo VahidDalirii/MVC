@@ -58,8 +58,7 @@ namespace CustomerListWebApp.Controllers
             List<Customer> customers = CustomerRepository.GetCustomers();
             return View(customers);
         }
-
-
+        
         /// <summary>
         /// This create metod uses if you already chose an customer 
         /// Checks if new order is unique in db, cost is not null, cost is an integer and title is not null and sends the new order to save in db
