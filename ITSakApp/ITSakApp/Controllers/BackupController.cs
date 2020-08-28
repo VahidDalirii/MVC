@@ -13,10 +13,11 @@ namespace ITSakApp.Controllers
 {
     public class BackupController : Controller
     {
-        private static string BackupFilePath = @"C:\Users\Vahid Daliri\Desktop\User backups";
+        private static string BackupFilePath = @"C:\Users\Vahid Daliri\Desktop\User Data\Backups";
         // GET: Backups
         public ActionResult Index()
         {
+            CheckDirectory();
             string[] filesInPaths = Directory.GetFiles(BackupFilePath, "*.json");
             Backup backup = new Backup();
             backup.FileNames = new List<string>();
@@ -37,6 +38,8 @@ namespace ITSakApp.Controllers
         // GET: Backup/Create
         public ActionResult Create()
         {
+            CheckDirectory();
+
             List<User> users = UserRepository.GetUsers();
             string jsonUsers = JsonConvert.SerializeObject(users);
             using (StreamWriter sw = new StreamWriter(BackupFilePath + "\\Backup " + DateTime.Now.ToString("dddd, dd MMMM yyyy, HHmm") + ".json", false))
@@ -46,6 +49,14 @@ namespace ITSakApp.Controllers
 
             TempData["textmsg"] = "<script>alert('Backup created successfully.');</script>";
             return RedirectToAction(nameof(Index));
+        }
+
+        private static void CheckDirectory()
+        {
+            bool exists = System.IO.Directory.Exists(BackupFilePath);
+
+            if (!exists)
+                System.IO.Directory.CreateDirectory(BackupFilePath);
         }
 
         // POST: Backup/Create
