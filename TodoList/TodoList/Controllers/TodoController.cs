@@ -18,11 +18,8 @@ namespace TodoList.Controllers
         /// <returns>A sorted list of todos</returns>
         public IActionResult Index()
         {
-            Database db = new Database();
-            List<Todo> todos = db.GetTodos();
-
-            string[] priorities = { "High", "Medium", "Low" };
-            List<Todo> sortedTodos = todos.OrderBy(p => Array.IndexOf(priorities, p.Priority)).ToList();
+            Helper helper = new Helper();
+            var sortedTodos = helper.GetSortedTodos();
 
             return View(sortedTodos);
         }
@@ -37,29 +34,33 @@ namespace TodoList.Controllers
         [HttpPost]
         public IActionResult Index(string submit,  string priority)
         {
-            Database db = new Database();
+            //Database db = new Database();
+            Helper helper = new Helper();
             List<Todo> sortedOrFilteredTodos = new List<Todo>();
 
             if (submit.Equals("Sort"))
             {
-                List<Todo> allTodos = db.GetTodos();
+                //List<Todo> allTodos = db.GetTodos();
 
-                string[] priorities = { "High", "Medium", "Low" };
+                //string[] priorities = { "High", "Medium", "Low" };
 
-                if (priority=="Low")
-                {
-                    Array.Reverse(priorities);
-                }
+                //if (priority=="Low")
+                //{
+                //    Array.Reverse(priorities);
+                //}
 
-                sortedOrFilteredTodos = allTodos.OrderBy(p => Array.IndexOf(priorities, p.Priority)).ToList();
+                //sortedOrFilteredTodos = allTodos.OrderBy(p => Array.IndexOf(priorities, p.Priority)).ToList();
+
+                return View(helper.GetSortedTodos(priority));
             }
 
             else
             {
-                sortedOrFilteredTodos = db.FilterTodos(priority);
+                //sortedOrFilteredTodos = db.FilterTodos(priority);
+                return View(helper.GetFilteredTodos(priority));
             }
 
-            return View(sortedOrFilteredTodos);
+            
 
         }
 
