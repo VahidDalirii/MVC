@@ -10,7 +10,7 @@ namespace TodoList
 {
     public class Database
     {
-        private const string TODO_COLLECTION = "Animal";
+        private const string TODO_COLLECTION = "Todo";
         private readonly IMongoDatabase db;
 
         public Database(string dbName="Todo-list")
