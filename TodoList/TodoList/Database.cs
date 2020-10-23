@@ -46,7 +46,7 @@ namespace TodoList
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="priority"></param>
-        public void EditTodo(ObjectId id, string title, string description, string priority)
+        public void EditTodo(ObjectId id, string title, string description, string date, string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
 
@@ -55,6 +55,7 @@ namespace TodoList
             var updateName = Builders<Todo>.Update
                 .Set("Title", title)
                 .Set("Description", description)
+                .Set("Date", date)
                 .Set("Priority", priority);
 
             collection.UpdateOne(filter, updateName);

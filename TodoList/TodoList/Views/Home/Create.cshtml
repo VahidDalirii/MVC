@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Create";
 }
+
+
+@if (TempData["textmsg"] != null)
+{
+    @Html.Raw(TempData["textmsg"])
+}
+
 <head>
     <link rel="stylesheet" href="@Url.Content("~/css/Site.css")" type="text/css" />
 </head>

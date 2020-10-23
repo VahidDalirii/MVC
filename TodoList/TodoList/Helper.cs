@@ -38,10 +38,10 @@ namespace TodoList
             db.SaveTodo(todo);
         }
 
-        internal void EditTodo(string id, string title, string description, string priority)
+        internal void EditTodo(string id, string title, string description, string date, string priority)
         {
             ObjectId todoId = new ObjectId(id);
-            db.EditTodo(todoId, title, description, priority);
+            db.EditTodo(todoId, title, description, date, priority);
         }
 
         internal void DeleteTodoById(string id)

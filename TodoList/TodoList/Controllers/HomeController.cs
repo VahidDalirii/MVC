@@ -82,6 +82,11 @@ namespace TodoList.Controllers
         public IActionResult Create(Todo todo)
         {
             Helper helper = new Helper();
+            if(todo.Date.Date < DateTime.Today)
+            {
+                TempData["textmsg"] = "<script>alert('You can not choose a day befor today');</script>";
+                return View();
+            }
             helper.SaveTodo(todo);
             
             return Redirect("/Home");
@@ -107,10 +112,16 @@ namespace TodoList.Controllers
         /// <param name="priority"></param>
         /// <returns>Returns the edited todo with new values</returns>
         [HttpPost]
-        public IActionResult Edit(string id, string title, string description, string priority)
+        public IActionResult Edit(string id, string title, string description, string date, string priority)
         {
-            Helper helper = new Helper();            
-            helper.EditTodo(id, title, description, priority);
+            Helper helper = new Helper();
+            if (DateTime.Parse(date).Date < DateTime.Today)
+            {
+                TempData["textmsg"] = "<script>alert('You can not choose a day befor today');</script>";
+                return View(helper.GetTodoById(id));
+            }
+
+            helper.EditTodo(id, title, description, date, priority);
 
             return Redirect($"/Home");
         }
