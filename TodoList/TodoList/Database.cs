@@ -43,17 +43,17 @@ namespace TodoList
         /// Edits a todo with new values as parameters
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="name"></param>
+        /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="priority"></param>
-        public void EditTodo(ObjectId id, string name, string description, string priority)
+        public void EditTodo(ObjectId id, string title, string description, string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
 
             var filter = Builders<Todo>.Filter.Eq("Id", id);
 
             var updateName = Builders<Todo>.Update
-                .Set("Name", name)
+                .Set("Title", title)
                 .Set("Description", description)
                 .Set("Priority", priority);
 

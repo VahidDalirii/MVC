@@ -1,13 +1,81 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<TodoList.Models.Todo>
+
+@{
+    ViewData["Title"] = "Index";
 }
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Site.css")" type="text/css" />
+</head>
 
-<div>
-    <h1>Welcome to your Todo App</h1>
-    <hr />  <br />  
+<h1>To Do Web Application</h1>
+
+
+
+<div class="flex-container">
+    <div class="section">
+        <form action="/Home/Create">
+            <input type="submit" value="Create New To Do" class="btn btn-success" />
+        </form>
+        <form action="/Home" method="post">
+            <div>
+                <br /><p>Select priority: </p>
+
+                <input type="radio" name="priority" value="High" style="float:left;margin-right:10px" /><p>High</p>
+                <input type="radio" name="priority" value="Medium" style="float:left;margin-right:10px" /><p>Medium</p>
+                <input type="radio" name="priority" value="Low" style="float:left;margin-right:10px" /><p>Low</p>
+
+                <input type="submit" name="submit" value="Sort" class="btn btn-primary" />
+                <input type="submit" name="submit" value="Filter" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="table-section">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (@Model.Count() == 0)
+                {
+                <h5 style="color:red">There is no TO DO to display</h5>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Priority)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Home", new { id = item.Id })" class="btn btn-warning" role="button">Edit</a> |
+                                <a href="@Url.Action("Delete", "Home", new { id = item.Id })" class="btn btn-danger" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div>
-    <a href="/Todo" class="btn btn-dark">Show all todos</a>
-    <a href="/Todo/Create" class="btn btn-dark">Create new todo</a>
-</div>
+
+
+
