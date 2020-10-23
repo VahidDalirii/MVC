@@ -10,6 +10,13 @@
 
 <h1>To Do 1 Web Application</h1>
 
+<div style="padding-left:50%">
+    <form action="/Home" method="post" style="align-content:center">
+        <p>Select date to show To-Dos</p>
+        <input type="date" name="date" value="@DateTime.Now.Date" />
+        <input type="submit" name="submit" value="Show" class="btn btn-primary" />
+    </form>
+</div>
 
 
 <div class="flex-container">
@@ -24,7 +31,7 @@
                 <input type="radio" name="priority" value="High" style="float:left;margin-right:10px" /><p>High</p>
                 <input type="radio" name="priority" value="Medium" style="float:left;margin-right:10px" /><p>Medium</p>
                 <input type="radio" name="priority" value="Low" style="float:left;margin-right:10px" /><p>Low</p>
-                
+
                 <input type="submit" name="submit" value="Sort" class="btn btn-primary" /> |
                 <input type="submit" name="submit" value="Filter" class="btn btn-primary" />
             </div>

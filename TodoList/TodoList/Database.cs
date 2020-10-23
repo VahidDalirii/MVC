@@ -13,7 +13,7 @@ namespace TodoList
         private const string TODO_COLLECTION = "Todo";
         private readonly IMongoDatabase db;
 
-        public Database(string dbName="Todo-list")
+        public Database(string dbName = "Todo-list")
         {
             MongoClient client = new MongoClient();
             db = client.GetDatabase(dbName);
@@ -28,7 +28,7 @@ namespace TodoList
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
             collection.InsertOne(newTodo);
         }
-        
+
         /// <summary>
         /// Gets all todos from db 
         /// </summary>
@@ -61,6 +61,12 @@ namespace TodoList
             collection.UpdateOne(filter, updateName);
         }
 
+        internal List<Todo> GetTodosWithDate(DateTime date)
+        {
+            var collection = db.GetCollection<Todo>(TODO_COLLECTION);
+            return collection.Find(td => td.Date == date).ToList();
+        }
+
         /// <summary>
         /// Filters todos after priority value 
         /// </summary>
@@ -69,7 +75,7 @@ namespace TodoList
         internal List<Todo> FilterTodos(string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
-            return collection.Find(td => td.Priority==priority).ToList();
+            return collection.Find(td => td.Priority == priority).ToList();
         }
 
         /// <summary>
@@ -90,7 +96,7 @@ namespace TodoList
         public void DeleteTodo(ObjectId id)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
-            collection.DeleteOne(td => td.Id==id);
+            collection.DeleteOne(td => td.Id == id);
         }
     }
 }

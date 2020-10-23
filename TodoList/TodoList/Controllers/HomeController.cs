@@ -26,9 +26,9 @@ namespace TodoList.Controllers
         public IActionResult Index()
         {
             Helper helper = new Helper();
-            var sortedTodos = helper.GetSortedTodos();
+            var todos = helper.GetTodosWithDate(DateTime.Today);
 
-            return View(sortedTodos);
+            return View(todos);
         }
 
 
@@ -39,7 +39,7 @@ namespace TodoList.Controllers
         /// <param name="priority"></param>
         /// <returns>A list of sorted or filtered todos</returns>
         [HttpPost]
-        public IActionResult Index(string submit, string priority)
+        public IActionResult Index(string submit, string priority, DateTime date)
         {
             Helper helper = new Helper();
 
@@ -50,6 +50,10 @@ namespace TodoList.Controllers
             else if (submit.Equals("Filter") && !string.IsNullOrEmpty(priority))
             {
                 return View(helper.GetFilteredTodos(priority));
+            }
+            else if (submit.Equals("Show"))
+            {
+                return View(helper.GetTodosWithDate(date));
             }
             return Redirect("/Home");
         }

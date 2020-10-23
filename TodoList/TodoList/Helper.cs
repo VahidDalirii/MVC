@@ -49,5 +49,10 @@ namespace TodoList
             ObjectId todoId = new ObjectId(id);
             db.DeleteTodo(todoId);
         }
+
+        internal List<Todo> GetTodosWithDate(DateTime date)
+        {
+            return db.GetTodosWithDate(date);
+        }
     }
 }
