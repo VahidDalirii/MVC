@@ -136,7 +136,7 @@ namespace TodoList.Controllers
             return Redirect("/Home");
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }

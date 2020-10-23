@@ -93,6 +93,9 @@ html {
     .hide-in-mobile{
         display:none;
     }
+    .btn-success{
+        font-size:12px;
+    }
 }
 
 .border-top {
