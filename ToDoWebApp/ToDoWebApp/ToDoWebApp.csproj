@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-ToDoWebApp-AC2CEFA8-4240-4035-9BFC-1181F7A50701</UserSecretsId>
+    <UserSecretsId>aspnet-ToDoWebApp-0D6872A7-470C-404E-857F-3336BC70DEE2</UserSecretsId>
   </PropertyGroup>
 
 
@@ -13,7 +13,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils" Version="3.1.4" />
     <PackageReference Include="MongoDB.Bson" Version="2.11.3" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
   </ItemGroup>
