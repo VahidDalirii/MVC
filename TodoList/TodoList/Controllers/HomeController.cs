@@ -26,7 +26,7 @@ namespace TodoList.Controllers
         public IActionResult Index()
         {
             Helper helper = new Helper();
-            var todos = helper.GetTodosWithDate(DateTime.Today);
+            var todos = helper.GetSortedTodos();
 
             return View(todos);
         }
