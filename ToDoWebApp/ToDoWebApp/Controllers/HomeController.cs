@@ -24,10 +24,15 @@ namespace ToDoWebApp.Controllers
         /// <returns>A sorted list of todos</returns>
         public IActionResult Index()
         {
-            Helper helper = new Helper();
-            var todos = helper.GetSortedTodos();
+            if (User.Identity.IsAuthenticated)
+            {
+                Helper helper = new Helper();
+                var todos = helper.GetSortedTodos();
 
-            return View(todos);
+                return View(todos);
+            }
+
+            return View();
         }
 
 
