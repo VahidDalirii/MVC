@@ -10,9 +10,9 @@ namespace ToDoWebApp
     public class Helper
     {
         private readonly Database db = new Database();
-        internal List<Todo> GetSortedTodos(string priority = null)
+        internal List<Todo> GetTodosByPriority(string userName, string priority = null)
         {
-            List<Todo> todos = db.GetTodos();
+            List<Todo> todos = db.GetTodosForThisUser(userName);
 
             string[] priorities = { "High", "Medium", "Low" };
             if (priority == "Low")
@@ -22,15 +22,20 @@ namespace ToDoWebApp
             return todos.OrderBy(p => Array.IndexOf(priorities, p.Priority)).ToList();
         }
 
-        internal List<Todo> GetFilteredTodos(string priority)
+        internal List<Todo> GetFilteredTodos(string userName, string priority)
         {
-            return db.FilterTodos(priority);
+            return db.FilterTodos(userName,priority);
         }
 
         internal Todo GetTodoById(string id)
         {
             ObjectId todoId = new ObjectId(id);
             return db.GetTodoById(todoId);
+        }
+
+        internal List<Todo> GetTodosForThisUser(string name)
+        {
+            return db.GetTodosForThisUser(name);
         }
 
         internal void SaveTodo(Todo todo)
@@ -50,9 +55,9 @@ namespace ToDoWebApp
             db.DeleteTodo(todoId);
         }
 
-        internal List<Todo> GetTodosWithDate(DateTime date)
+        internal List<Todo> GetTodosWithDate(string userName, DateTime date)
         {
-            return db.GetTodosWithDate(date);
+            return db.GetTodosWithDate(userName , date);
         }
     }
 }

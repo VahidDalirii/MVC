@@ -27,7 +27,7 @@ namespace ToDoWebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 Helper helper = new Helper();
-                var todos = helper.GetSortedTodos();
+                var todos = helper.GetTodosForThisUser(User.Identity.Name);
 
                 return View(todos);
             }
@@ -49,15 +49,15 @@ namespace ToDoWebApp.Controllers
 
             if (submit.Equals("Sort"))
             {
-                return View(helper.GetSortedTodos(priority));
+                return View(helper.GetTodosByPriority(User.Identity.Name, priority));
             }
             else if (submit.Equals("Filter") && !string.IsNullOrEmpty(priority))
             {
-                return View(helper.GetFilteredTodos(priority));
+                return View(helper.GetFilteredTodos(User.Identity.Name, priority));
             }
             else if (submit.Equals("Show"))
             {
-                return View(helper.GetTodosWithDate(date));
+                return View(helper.GetTodosWithDate(User.Identity.Name, date));
             }
             return Redirect("/Home");
         }

@@ -10,14 +10,17 @@
     @Html.Raw(TempData["textmsg"])
 }
 
-<h1>Create</h1>
+<h1>Create a To Do</h1>
 
-<h4>Todo</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User" class="control-label" hidden></label>
+                <input asp-for="User" class="form-control" value="@User.Identity.Name" required hidden/>
+                <span asp-validation-for="User" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" required />

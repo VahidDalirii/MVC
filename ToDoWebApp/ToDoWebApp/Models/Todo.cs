@@ -11,6 +11,7 @@ namespace ToDoWebApp.Models
     public class Todo
     {
         public ObjectId Id { get; set; }
+        public string User { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Priority { get; set; }

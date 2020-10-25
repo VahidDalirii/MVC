@@ -39,6 +39,12 @@ namespace ToDoWebApp
             return collection.Find(td => true).ToList();
         }
 
+        internal List<Todo> GetTodosForThisUser(string name)
+        {
+            var collection = db.GetCollection<Todo>(TODO_COLLECTION);
+            return collection.Find(tds => tds.User==name).ToList();
+        }
+
         /// <summary>
         /// Edits a todo with new values as parameters
         /// </summary>
@@ -61,10 +67,10 @@ namespace ToDoWebApp
             collection.UpdateOne(filter, updateName);
         }
 
-        internal List<Todo> GetTodosWithDate(DateTime date)
+        internal List<Todo> GetTodosWithDate(string userName,DateTime date)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
-            return collection.Find(td => td.Date == date).ToList();
+            return collection.Find(td => td.User==userName && td.Date == date).ToList();
         }
 
         /// <summary>
@@ -72,10 +78,10 @@ namespace ToDoWebApp
         /// </summary>
         /// <param name="priority"></param>
         /// <returns>A list of todos with same priority</returns>
-        internal List<Todo> FilterTodos(string priority)
+        internal List<Todo> FilterTodos(string userName, string priority)
         {
             var collection = db.GetCollection<Todo>(TODO_COLLECTION);
-            return collection.Find(td => td.Priority == priority).ToList();
+            return collection.Find(td => td.User== userName && td.Priority == priority).ToList();
         }
 
         /// <summary>
