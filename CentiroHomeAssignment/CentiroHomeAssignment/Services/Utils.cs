@@ -54,6 +54,7 @@ namespace CentiroHomeAssignment.Services
 
             foreach (OrderRow or in orders)
             {
+                var test = or;
                 if (or.OrderNumber.Equals(order.OrderNumber, StringComparison.InvariantCultureIgnoreCase)
                     && or.OrderLineNumber.Equals(order.OrderLineNumber, StringComparison.InvariantCultureIgnoreCase)
                     && or.ProductNumber.Equals(order.ProductNumber, StringComparison.InvariantCultureIgnoreCase)

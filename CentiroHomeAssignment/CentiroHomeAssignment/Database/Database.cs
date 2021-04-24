@@ -59,7 +59,7 @@ namespace CentiroHomeAssignment.Repositories
                 .Set("ProductNumber", order.ProductNumber)
                 .Set("Quantity", order.Quantity)
                 .Set("Name", order.Name)
-                .Set("Description", order.Description)
+                .Set("Description", order.Description ?? "")
                 .Set("Price", order.Price)
                 .Set("ProductGroup", order.ProductGroup)
                 .Set("OrderDate", order.OrderDate)

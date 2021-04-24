@@ -3,7 +3,7 @@
     ViewData["Title"] = "GetByOrderNumber";
 }
 
-<h1>GetByOrderNumber</h1>
+<h1>Get Orders By OrderNumber</h1>
 
 <hr />
 <div class="row">
@@ -11,7 +11,7 @@
         <form asp-action="ShowOrdersByOrderNumber">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OrderNumber" class="control-label"></label>
+                <label asp-for="OrderNumber" class="control-label">Order number</label>
                 <input asp-for="OrderNumber" class="form-control" />
                 <span asp-validation-for="OrderNumber" class="text-danger"></span>
             </div>
