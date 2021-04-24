@@ -12,17 +12,17 @@ namespace CentiroHomeAssignment.Services
         {
             var order = new OrderRow
             {
-                OrderNumber = row[1],
-                OrderLineNumber = row[2],
-                ProductNumber = row[3],
-                Quantity = row[4],
-                Name = row[5],
-                Description = row[6],
-                Price = row[7],
-                ProductGroup = row[8],
-                OrderDate = row[9],
-                CustomerName = row[10],
-                CustomerNumber = row[11],
+                OrderNumber = row[0] ?? throw new NullReferenceException("OrderNumber can not be null"),
+                OrderLineNumber = row[1] ?? throw new NullReferenceException("OrderLineNumber can not be null"),
+                ProductNumber = row[2] ?? throw new NullReferenceException("ProductNumber can not be null"),
+                Quantity = row[3] ?? throw new NullReferenceException("Quantity can not be null"),
+                Name = row[4] ?? throw new NullReferenceException("Name can not be null"),
+                Description = row[5],
+                Price = row[6] ?? throw new NullReferenceException("Price can not be null"),
+                ProductGroup = row[7] ?? throw new NullReferenceException("ProductGroup can not be null"),
+                OrderDate = row[8] ?? throw new NullReferenceException("OrderDate can not be null"),
+                CustomerName = row[9] ?? throw new NullReferenceException("CustomerName number can not be null"),
+                CustomerNumber = row[10] ?? throw new NullReferenceException("CustomerNumber can not be null"),
             };
 
             return order;

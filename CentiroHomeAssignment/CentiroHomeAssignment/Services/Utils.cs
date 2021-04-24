@@ -13,7 +13,7 @@ namespace CentiroHomeAssignment.Services
         {
             try
             {
-                if(!Directory.Exists(path))
+                if (!Directory.Exists(path))
                     throw new Exception("Path does not exists");
 
                 var files = FileServices.GetFiles(path);
@@ -26,8 +26,17 @@ namespace CentiroHomeAssignment.Services
                         var rows = parser.GetRows(file, Encoding.UTF8);
                         foreach (var row in rows)
                         {
-                            var splitedRow = parser.GetSplitedRow(row);
-                            var order = CsvOrderMapper.MapRow(splitedRow);
+                            var splitedRow = parser.GetSplitedRow(row);                            
+                            var order = new OrderRow();
+                            try
+                            {
+                                order = CsvOrderMapper.MapRow(splitedRow);
+                            }
+                            catch (NullReferenceException)
+                            {
+                                continue;
+                            }
+
                             if (!Utils.OrderIsAlreadyRegistered(order))
                             {
                                 OrderRepository.CreateOrder(order);
@@ -74,7 +83,7 @@ namespace CentiroHomeAssignment.Services
             return false;
         }
 
-        
+
 
     }
 }

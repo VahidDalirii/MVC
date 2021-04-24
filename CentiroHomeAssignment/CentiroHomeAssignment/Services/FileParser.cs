@@ -62,7 +62,11 @@ namespace CentiroHomeAssignment.Services
         
         public List<string> GetSplitedRow(string row)
         {
-            return row.Split(_splitChar).ToList();
+            var splitedRow = row.Split(_splitChar).ToList();
+            splitedRow.RemoveAt(0);
+            splitedRow.RemoveAt(splitedRow.Count - 1);   //Remove both empty elements in begin and end of the list
+
+            return splitedRow;
         }
     }
 }

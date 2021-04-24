@@ -13,4 +13,14 @@
     <PackageReference Include="coverlet.collector" Version="1.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CentiroHomeAssignment\CentiroHomeAssignment.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestFiles\CsvOrders.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

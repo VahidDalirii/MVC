@@ -86,8 +86,8 @@
                     @Html.DisplayFor(modelItem => item.CustomerNumber)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditOrder", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "GetOrderById", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "EditOrder", new { id = item.Id })
+                    @Html.ActionLink("Details", "GetOrderById", new { id = item.Id })
                     @Html.ActionLink("Delete", "DeleteOrder", new { id = item.Id })
                 </td>
             </tr>
