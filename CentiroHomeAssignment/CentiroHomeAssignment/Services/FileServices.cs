@@ -8,9 +8,9 @@ namespace CentiroHomeAssignment.Services
 {
     public static class FileServices
     {
-        public static List<string> GetCsvFiles(string path)
+        public static List<string> GetFiles(string path)
         {
-            return Directory.GetFiles(path, "*.txt",  SearchOption.AllDirectories).ToList();
+            return Directory.GetFiles(path).ToList();
         }
     }
 }

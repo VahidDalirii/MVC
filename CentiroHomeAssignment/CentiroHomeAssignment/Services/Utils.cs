@@ -1,17 +1,53 @@
 ﻿using CentiroHomeAssignment.Models;
 using CentiroHomeAssignment.Repositories;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Text;
 
 namespace CentiroHomeAssignment.Services
 {
     public static class Utils
     {
+        public static List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path)
+        {
+            try
+            {
+                if(!Directory.Exists(path))
+                    throw new Exception("Path does not exists");
+
+                var files = FileServices.GetFiles(path);
+
+                foreach (var file in files)
+                {
+                    if (Path.GetExtension(file).Equals(".txt", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        var parser = new FileParser<OrderRow>('|', true, false, "txt");
+                        var rows = parser.GetRows(file, Encoding.UTF8);
+                        foreach (var row in rows)
+                        {
+                            var splitedRow = parser.GetSplitedRow(row);
+                            var order = CsvOrderMapper.MapRow(splitedRow);
+                            if (!Utils.OrderIsAlreadyRegistered(order))
+                            {
+                                OrderRepository.CreateOrder(order);
+                                orders.Add(order);
+                            }
+                        }
+                    }
+                    if (Path.GetExtension(file).Equals(".xml", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        //Future xml files 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error when getting orders: {ex.Message}");
+            }
+
+            return orders;
+        }
         public static bool OrderIsAlreadyRegistered(OrderRow order)
         {
             var orders = OrderRepository.GetOrders();
@@ -36,6 +72,8 @@ namespace CentiroHomeAssignment.Services
 
             return false;
         }
+
+        
 
     }
 }

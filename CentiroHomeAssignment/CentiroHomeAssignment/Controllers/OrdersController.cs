@@ -16,53 +16,22 @@ namespace CentiroHomeAssignment.Controllers
         List<OrderRow> Orders = OrderRepository.GetOrders();
         public IActionResult GetAll()
         {
-            try
-            {
-                var path = "C:\\Users\\Saeid\\Downloads\\CentiroHomeAssignment\\CentiroHomeAssignment\\App_Data\\";
-                var csvFiles = FileServices.GetCsvFiles(path);
-
-                foreach (var file in csvFiles)
-                {
-                    if (Path.GetExtension(file).Equals(".txt", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        var parser = new FileParser<OrderRow>('|', true, false, "txt");
-                        var rows = parser.GetRows(file, Encoding.UTF8);
-                        foreach (var row in rows)
-                        {
-                            var splitedRow = parser.GetSplitedRow(row);
-                            var order = CsvOrderMapper.MapRow(splitedRow);
-                            if (!Utils.OrderIsAlreadyRegistered(order))
-                            {
-                                OrderRepository.CreateOrder(order);
-                                Orders.Add(order);
-                            }                            
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error when getting orders: {ex.Message}");
-            }
+            var path = @"D:\Repos\MVC\CentiroHomeAssignment\CentiroHomeAssignment\App_Data\";
+            Orders = Utils.AddOrdersFromFiles(Orders, path);
 
             return View(Orders);
         }
 
-        public IActionResult GetByOrderNumber(string id)
+        public IActionResult GetByOrderNumber()
         {
-            ObjectId orderId = new ObjectId(id);
-            var order = new OrderRow();
-            try
-            {
-                order = OrderRepository.GetOrderById(orderId);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error when getting order details: {ex.Message}");
-            }
+            return View();
+        }
 
-            return View(order);
-
+        [HttpPost]
+        public IActionResult ShowOrdersByOrderNumber(string orderNumber)
+        {
+            var orders = OrderRepository.GetOrdersByOrderNumber(orderNumber);
+            return View(orders);
         }
 
         public IActionResult GetOrderById(string id)

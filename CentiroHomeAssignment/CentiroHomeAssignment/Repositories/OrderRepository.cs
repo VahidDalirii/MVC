@@ -26,6 +26,11 @@ namespace CentiroHomeAssignment.Repositories
             return _db.GetOrderById(id);
         }
 
+        public static List<OrderRow> GetOrdersByOrderNumber(string orderNumber)
+        {
+            return _db.GetOrdersByOrderNumber(orderNumber);
+        }
+
         public static void DeleteOrderById(ObjectId id)
         {
             _db.DeleteOrderById(id);

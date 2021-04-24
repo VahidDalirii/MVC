@@ -45,11 +45,14 @@ namespace CentiroHomeAssignment.Services
                         var line = lines[i];
                         rows.Add(line);
                     }
-                }                
+                }
+                if (_fileFormat.Equals("xml", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    //Future xml files 
+                }
             }
             catch (Exception ex)
             {
-
                 throw new Exception($"Parse error: {ex.Message}");
             }
             

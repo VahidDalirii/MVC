@@ -38,6 +38,12 @@ namespace CentiroHomeAssignment.Repositories
             return collection.Find(o => o.Id == id).FirstOrDefault();
         }
 
+        public List<OrderRow> GetOrdersByOrderNumber(string orderNumber)
+        {
+            var collection = _db.GetCollection<OrderRow>(Orders_Collection);
+            return collection.Find(o => o.OrderNumber == orderNumber).ToList();
+        }
+
         public void DeleteOrderById(ObjectId id)
         {
             var collection = _db.GetCollection<OrderRow>(Orders_Collection);
