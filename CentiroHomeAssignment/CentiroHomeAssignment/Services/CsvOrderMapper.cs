@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CentiroHomeAssignment.Services
 {
-    public static class CsvOrderMapper
+    public class CsvOrderMapper
     {
         public static OrderRow MapRow(List<string> row)
         {

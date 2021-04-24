@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CentiroHomeAssignment.Services
 {
-    public static class Utils
+    public class Utils
     {
         public static List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path)
         {
@@ -37,9 +37,10 @@ namespace CentiroHomeAssignment.Services
                                 continue;
                             }
 
-                            if (!Utils.OrderIsAlreadyRegistered(order))
+                            if (!OrderIsAlreadyRegistered(order))
                             {
-                                OrderRepository.CreateOrder(order);
+                                var orderRepository = new OrderRepository();
+                                orderRepository.CreateOrder(order);
                                 orders.Add(order);
                             }
                         }
@@ -59,7 +60,8 @@ namespace CentiroHomeAssignment.Services
         }
         public static bool OrderIsAlreadyRegistered(OrderRow order)
         {
-            var orders = OrderRepository.GetOrders();
+            var orderRepository = new OrderRepository();
+            var orders = orderRepository.GetOrders();
 
             foreach (OrderRow or in orders)
             {

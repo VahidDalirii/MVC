@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CentiroHomeAssignment.Services
 {
-    public static class FileServices
+    public class FileServices
     {
         public static List<string> GetFiles(string path)
         {

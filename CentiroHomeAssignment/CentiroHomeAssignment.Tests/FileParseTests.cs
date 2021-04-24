@@ -35,6 +35,9 @@ namespace CentiroHomeAssignment.Tests
 
             Assert.AreEqual(splitedRows.Count, 11);
             Assert.AreEqual(splitedRows[0], "17890");
+            Assert.AreEqual(splitedRows[2], "123451324A");
+            Assert.AreEqual(splitedRows[5], "Super awesome starfighter");
+            Assert.AreEqual(splitedRows[10], "737268");
         }
     }
 

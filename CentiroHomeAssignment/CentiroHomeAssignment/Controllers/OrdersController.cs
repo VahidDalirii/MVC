@@ -13,13 +13,16 @@ namespace CentiroHomeAssignment.Controllers
 {
     public class OrdersController : Controller
     {
-        List<OrderRow> Orders = OrderRepository.GetOrders();
+        public IOrderRepository OrderRepository { get; set; } = new OrderRepository();
+        
         public IActionResult GetAll()
         {
-            var path = @"D:\Repos\MVC\CentiroHomeAssignment\CentiroHomeAssignment\App_Data\";
-            Orders = Utils.AddOrdersFromFiles(Orders, path);
+            List<OrderRow> orders = OrderRepository.GetOrders();
 
-            return View(Orders);
+            var path = @"D:\Repos\MVC\CentiroHomeAssignment\CentiroHomeAssignment\App_Data\";
+            orders = Utils.AddOrdersFromFiles(orders, path);
+
+            return View(orders);
         }
 
         public IActionResult GetByOrderNumber()
@@ -61,8 +64,9 @@ namespace CentiroHomeAssignment.Controllers
         [HttpPost]
         public IActionResult CreateOrder(OrderRow order)
         {
-            OrderRepository.CreateOrder(order);
-            Orders.Add(order);
+            var orderRepository = new OrderRepository();
+            orderRepository.CreateOrder(order);
+            //Orders.Add(order);
 
             return RedirectToAction("GetAll");
         }
@@ -81,7 +85,7 @@ namespace CentiroHomeAssignment.Controllers
             ObjectId orderId = new ObjectId(id);
             var order = OrderRepository.GetOrderById(orderId);
             OrderRepository.DeleteOrderById(orderId);
-            Orders.Remove(order);
+            //Orders.Remove(order);
 
             return RedirectToAction("GetAll");
         }
