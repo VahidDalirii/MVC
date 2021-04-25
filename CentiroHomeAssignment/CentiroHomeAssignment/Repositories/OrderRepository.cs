@@ -36,6 +36,7 @@ namespace CentiroHomeAssignment.Repositories
         public void CreateOrder(OrderRow order)
         {
             order = _utils.GetTrimedOrderValues(order);
+            order.OrderDate = order.OrderDate.ToLocalTime();
             _db.CreateOrder(order);
         }
 
@@ -57,6 +58,7 @@ namespace CentiroHomeAssignment.Repositories
         public void EditOrder(OrderRow order)
         {
             order = _utils.GetTrimedOrderValues(order);
+            order.OrderDate = order.OrderDate.ToLocalTime();
             _db.EditOrder(order);
         }
     }
