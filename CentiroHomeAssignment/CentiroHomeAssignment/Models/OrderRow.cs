@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace CentiroHomeAssignment.Models
@@ -27,7 +28,8 @@ namespace CentiroHomeAssignment.Models
         [NotNull]
         public string ProductGroup { get; set; }
         [NotNull]
-        public string OrderDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime OrderDate { get; set; }
         [NotNull]
         public string CustomerName { get; set; }
         [NotNull]

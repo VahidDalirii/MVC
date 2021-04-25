@@ -48,7 +48,7 @@ namespace CentiroHomeAssignment.Tests
                 Description = "   Some des  ",
                 Price = " price",
                 ProductGroup = "  Normal ",
-                OrderDate = "2021-04-24",
+                OrderDate = DateTime.Now,
                 CustomerName = "   Centiro  ",
                 CustomerNumber = "   1234"
             };

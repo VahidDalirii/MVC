@@ -3,6 +3,7 @@ using CentiroHomeAssignment.Repositories;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -118,7 +119,7 @@ namespace CentiroHomeAssignment.Services
                     && or.Description.Equals(order.Description, StringComparison.InvariantCultureIgnoreCase)
                     && or.Price.Equals(order.Price, StringComparison.InvariantCultureIgnoreCase)
                     && or.ProductGroup.Equals(order.ProductGroup, StringComparison.InvariantCultureIgnoreCase)
-                    && or.OrderDate.Equals(order.OrderDate, StringComparison.InvariantCultureIgnoreCase)
+                    && DateTime.Compare(or.OrderDate, order.OrderDate) == 0
                     && or.CustomerName.Equals(order.CustomerName, StringComparison.InvariantCultureIgnoreCase)
                     && or.CustomerNumber.Equals(order.CustomerNumber, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -142,7 +143,7 @@ namespace CentiroHomeAssignment.Services
                 Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description.Trim(),
                 Price = order.Price.Trim(),
                 ProductGroup = order.ProductGroup.Trim(),
-                OrderDate = order.OrderDate.Trim(),
+                OrderDate = order.OrderDate,
                 CustomerName = order.CustomerName.Trim(),
                 CustomerNumber = order.CustomerNumber.Trim(),
             };

@@ -1,6 +1,7 @@
 ﻿using CentiroHomeAssignment.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace CentiroHomeAssignment.Services
                 Description = string.IsNullOrEmpty(row[5]) ? "" : row[5],
                 Price = string.IsNullOrEmpty(row[6]) ? throw new NullReferenceException("OrderNumber can not be null") : row[6],
                 ProductGroup = string.IsNullOrEmpty(row[7]) ? throw new NullReferenceException("OrderNumber can not be null") : row[7],
-                OrderDate = string.IsNullOrEmpty(row[8]) ? throw new NullReferenceException("OrderNumber can not be null") : row[8],
+                OrderDate = string.IsNullOrEmpty(row[8]) ? throw new NullReferenceException("OrderNumber can not be null") : DateTime.ParseExact(row[8], "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 CustomerName = string.IsNullOrEmpty(row[9]) ? throw new NullReferenceException("OrderNumber can not be null") : row[9],
                 CustomerNumber = string.IsNullOrEmpty(row[10]) ? throw new NullReferenceException("OrderNumber can not be null") : row[10],
             };
