@@ -135,6 +135,7 @@ namespace CentiroHomeAssignment.Services
         {
             var trimedOrder = new OrderRow
             {
+                Id = order.Id,
                 OrderNumber = order.OrderNumber.Trim(),
                 OrderLineNumber = order.OrderLineNumber.Trim(),
                 ProductNumber = order.ProductNumber.Trim(),
