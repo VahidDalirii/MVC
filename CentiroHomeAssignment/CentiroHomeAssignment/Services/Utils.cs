@@ -11,6 +11,7 @@ namespace CentiroHomeAssignment.Services
 {
     public class Utils: IUtils
     {
+        //Get files from App_Data folder and check for new files, to add new orders to DB 
         public List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path)
         {
             try
@@ -18,7 +19,7 @@ namespace CentiroHomeAssignment.Services
                 if (!Directory.Exists(path))
                     throw new Exception("Path does not exists");
 
-                var files = FileServices.GetFiles(path);
+                var files = FileService.GetFiles(path);
 
                 foreach (var file in files)
                 {
@@ -29,6 +30,7 @@ namespace CentiroHomeAssignment.Services
                             continue;
                         var parser = new FileParser<OrderRow>('|', true, false, "txt");
                         var rows = parser.GetRows(file, Encoding.UTF8);
+
                         foreach (var row in rows)
                         {
                             var splitedRow = parser.GetSplitedRow(row);                            
@@ -63,6 +65,7 @@ namespace CentiroHomeAssignment.Services
             return orders;
         }
 
+        //Check file is already registered
         public bool FileIsAlreadyRegistered(string fileName)
         {
             var file = new FileModel
@@ -80,6 +83,7 @@ namespace CentiroHomeAssignment.Services
             return false;
         }
 
+        //Add new order to DB
         public bool AddedOrderSuccessfullyToDatabase(OrderRow order)
         {
             try
@@ -95,6 +99,7 @@ namespace CentiroHomeAssignment.Services
             
         }
 
+        //Check to not register same order twice in DB
         public bool OrderIsAlreadyRegistered(OrderRow order)
         {
             var orderRepository = new OrderRepository();

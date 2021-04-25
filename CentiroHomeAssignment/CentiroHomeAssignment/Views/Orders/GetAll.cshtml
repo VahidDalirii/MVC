@@ -9,6 +9,7 @@
 <p>
     <a asp-action="CreateOrder">Create New Order</a>
 </p>
+@Html.ValidationSummary()
 <div>
     @if (Model.Count() == 0)
     {

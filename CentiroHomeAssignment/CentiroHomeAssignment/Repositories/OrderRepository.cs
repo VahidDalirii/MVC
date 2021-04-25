@@ -15,10 +15,6 @@ namespace CentiroHomeAssignment.Repositories
         {
             _utils = new Utils();
         }
-        public OrderRepository(IUtils utils)
-        {
-            _utils = utils;
-        }
 
         readonly static OrdersDb _db = new OrdersDb();
 

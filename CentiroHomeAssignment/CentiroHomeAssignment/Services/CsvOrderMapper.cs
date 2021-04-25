@@ -8,6 +8,7 @@ namespace CentiroHomeAssignment.Services
 {
     public class CsvOrderMapper
     {
+        //Add order details from list to an order object 
         public static OrderRow MapRow(List<string> row)
         {
             var order = new OrderRow

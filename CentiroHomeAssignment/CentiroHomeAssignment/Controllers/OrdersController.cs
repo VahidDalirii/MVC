@@ -12,21 +12,33 @@ namespace CentiroHomeAssignment.Controllers
     {
         public IOrderRepository OrderRepository { get; set; } = new OrderRepository();
 
+        //Get all orders
         public IActionResult GetAll()
         {
             List<OrderRow> orders = OrderRepository.GetOrders();
 
             var path = "App_Data\\";
-            orders = OrderRepository.AddOrdersFromFiles(orders, path);
+            try
+            {
+                orders = OrderRepository.AddOrdersFromFiles(orders, path);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Orders", $"{ex.Message}");
+                return View(orders);
+            }
+            
 
             return View(orders);
         }
 
+        
         public IActionResult GetByOrderNumber()
         {
             return View();
         }
 
+        //Get all orders match given order number
         [HttpPost]
         public IActionResult ShowOrdersByOrderNumber(string orderNumber)
         {
@@ -34,6 +46,7 @@ namespace CentiroHomeAssignment.Controllers
             return View(orders);
         }
 
+        //Get order by id and show the details
         public IActionResult GetOrderById(string id)
         {
             ObjectId orderId = new ObjectId(id);
@@ -43,14 +56,13 @@ namespace CentiroHomeAssignment.Controllers
             return View(order);
 
         }
-
-
-
+               
         public IActionResult CreateOrder()
         {
             return View();
         }
 
+        //Create a new order and store in database if there is no other similar order registered in db
         [HttpPost]
         public IActionResult CreateOrder(OrderRow order)
         {
@@ -64,6 +76,7 @@ namespace CentiroHomeAssignment.Controllers
             return RedirectToAction("GetAll");
         }
 
+        //Get order and show details before delete
         public IActionResult DeleteOrder(string id)
         {
             ObjectId orderId = new ObjectId(id);
@@ -72,6 +85,7 @@ namespace CentiroHomeAssignment.Controllers
             return View(order);
         }
 
+        //Delete order from DB after confirmation
         [HttpPost, ActionName("DeleteOrder")]
         public IActionResult DeleteOrderConfirmed(string id)
         {
@@ -82,6 +96,7 @@ namespace CentiroHomeAssignment.Controllers
             return RedirectToAction("GetAll");
         }
 
+        //Show order details to edit
         public IActionResult EditOrder(string id)
         {
             ObjectId orderId = new ObjectId(id);
@@ -90,6 +105,7 @@ namespace CentiroHomeAssignment.Controllers
             return View(order);
         }
 
+        //Edit order in DB if there is no other similar order registered in db
         [HttpPost, ActionName("EditOrder")]
         public IActionResult EditOrder(OrderRow order, string id)
         {

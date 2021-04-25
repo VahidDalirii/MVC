@@ -23,6 +23,7 @@ namespace CentiroHomeAssignment.Services
             _fileFormat = fileFormat;
         }
 
+        //Return all order rows in file, depending on file format
         public List<string> GetRows(string fileName, Encoding encoding = null)
         {
             encoding = encoding ?? Encoding.UTF8;
@@ -60,6 +61,7 @@ namespace CentiroHomeAssignment.Services
             return rows;
         }    
         
+        //Return splited row as a list
         public List<string> GetSplitedRow(string row)
         {
             var splitedRow = row.Split(_splitChar).ToList();
