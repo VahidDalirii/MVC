@@ -11,14 +11,13 @@ namespace CentiroHomeAssignment.Controllers
     public class OrdersController : Controller
     {
         public IOrderRepository OrderRepository { get; set; } = new OrderRepository();
-        public IUtils Utils { get; set; } = new Utils();
 
         public IActionResult GetAll()
         {
             List<OrderRow> orders = OrderRepository.GetOrders();
 
             var path = "App_Data\\";
-            orders = Utils.AddOrdersFromFiles(orders, path);
+            orders = OrderRepository.AddOrdersFromFiles(orders, path);
 
             return View(orders);
         }
@@ -55,7 +54,7 @@ namespace CentiroHomeAssignment.Controllers
         [HttpPost]
         public IActionResult CreateOrder(OrderRow order)
         {
-            if (Utils.OrderIsAlreadyRegistered(order))
+            if (OrderRepository.OrderIsAlreadyRegistered(order))
             {
                 ModelState.AddModelError("Order", "This order was already registered. Can't register same order twice.");
                 return View(order);
@@ -98,7 +97,7 @@ namespace CentiroHomeAssignment.Controllers
             order.Id = orderId;
             order.Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description;
             
-            if (Utils.OrderIsAlreadyRegistered(order))
+            if (OrderRepository.OrderIsAlreadyRegistered(order))
             {
                 ModelState.AddModelError("Order", "This order was already registered. Can't register same order twice.");
                 return View(order);

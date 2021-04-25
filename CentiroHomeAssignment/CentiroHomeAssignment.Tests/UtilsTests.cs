@@ -13,18 +13,24 @@ namespace CentiroHomeAssignment.Tests
     public class UtilsTests
     {
         [TestMethod]
-        [DeploymentItem("TestFiles\\")]
         public void AddOrdersFromFiles_ReadFilesInDirectory_ReturnAllOrdersInFiles()
         {
+            var path = "TestFiles\\";
             var utils = new Utils();
             var mockedUtils = new Mock<IUtils>();
+            
+            
+            mockedUtils.Setup(e => e.FileIsAlreadyRegistered(It.IsAny<string>())).Returns(false);
             mockedUtils.Setup(e => e.OrderIsAlreadyRegistered(It.IsAny<OrderRow>())).Returns(false);
-            //mockedUtils.Setup(x => x.AddOrderToDatabase(It.IsAny<OrderRow>())).
+            mockedUtils.Setup(e => e.AddedOrderSuccessfullyToDatabase(It.IsAny<OrderRow>())).Returns(true);
+            mockedUtils.Setup(e => e.AddOrdersFromFiles(It.IsAny<List<OrderRow>>(), path)).Returns(utils.AddOrdersFromFiles(new List<OrderRow>(), path));
 
-            var orders = utils.AddOrdersFromFiles(new List<OrderRow>(), "TestFiles\\");
+            OrderRepository or = new OrderRepository(mockedUtils.Object);
+            var orders = or.AddOrdersFromFiles(new List<OrderRow>(), path);
 
+            mockedUtils.VerifyAll();
             Assert.AreEqual(orders.Count, 13);
-
+            
         }
     }
 }

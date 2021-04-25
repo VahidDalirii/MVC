@@ -14,8 +14,9 @@ namespace CentiroHomeAssignment.Tests
         [DeploymentItem("TestFiles\\CsvOrders.txt")]
         public void GetRows_ReadTestFile_ShouldReturnAllFilesRows()
         {
+            var path = "TestFiles\\CsvOrders.txt";
             var parser = new FileParser<OrderRow>('|', true, false, "txt");
-            var rows = parser.GetRows("TestFiles\\CsvOrders.txt", Encoding.UTF8);
+            var rows = parser.GetRows(path, Encoding.UTF8);
 
             Assert.AreEqual(rows.Count, 4);
             Assert.IsTrue(rows[0].Contains("|Daniel Johansson|737268|"));
@@ -28,8 +29,9 @@ namespace CentiroHomeAssignment.Tests
         [DeploymentItem("TestFiles\\CsvOrders.txt")]
         public void GetSplitedRow_SampleRowToSplite_ShouldReturnSplitedRow()
         {
+            var path = "TestFiles\\CsvOrders.txt";
             var parser = new FileParser<OrderRow>('|', true, false, "txt");
-            var rows = parser.GetRows("TestFiles\\CsvOrders.txt", Encoding.UTF8);
+            var rows = parser.GetRows(path, Encoding.UTF8);
 
             var splitedRows = parser.GetSplitedRow(rows[0]);
 

@@ -7,6 +7,7 @@ namespace CentiroHomeAssignment.Models
     public class OrderRow
     {
         [BsonId]
+        [NotNull]
         public ObjectId Id { get; set; }
         [NotNull]
         public string OrderNumber { get; set; }
@@ -18,6 +19,7 @@ namespace CentiroHomeAssignment.Models
         public string Quantity { get; set; }
         [NotNull]
         public string Name { get; set; }
+        [AllowNull]
         public string Description { get; set; }
         [NotNull]
         public string Price { get; set; }

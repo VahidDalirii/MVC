@@ -10,5 +10,7 @@ namespace CentiroHomeAssignment.Services
     {
         List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path);
         bool OrderIsAlreadyRegistered(OrderRow order);
+        bool FileIsAlreadyRegistered(string fileName);
+        bool AddedOrderSuccessfullyToDatabase(OrderRow order);
     }
 }

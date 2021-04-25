@@ -9,6 +9,8 @@ namespace CentiroHomeAssignment.Repositories
 {
     public interface IOrderRepository
     {
+        List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path);
+        bool OrderIsAlreadyRegistered(OrderRow order);
         List<OrderRow> GetOrders();
         void CreateOrder(OrderRow order);
         OrderRow GetOrderById(ObjectId id);

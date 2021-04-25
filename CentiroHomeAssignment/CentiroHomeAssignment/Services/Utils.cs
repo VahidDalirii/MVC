@@ -44,7 +44,7 @@ namespace CentiroHomeAssignment.Services
                             
                             if (!OrderIsAlreadyRegistered(order))
                             {
-                                AddOrderToDatabase(order);
+                                if (AddedOrderSuccessfullyToDatabase(order))
                                 orders.Add(order);
                             }
                         }
@@ -57,13 +57,13 @@ namespace CentiroHomeAssignment.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{ex.Message}");
+                throw new Exception($" Erro: {ex.Message}");
             }
 
             return orders;
         }
 
-        private bool FileIsAlreadyRegistered(string fileName)
+        public bool FileIsAlreadyRegistered(string fileName)
         {
             var file = new FileModel
             {
@@ -80,10 +80,19 @@ namespace CentiroHomeAssignment.Services
             return false;
         }
 
-        public void AddOrderToDatabase(OrderRow order)
+        public bool AddedOrderSuccessfullyToDatabase(OrderRow order)
         {
-            var orderRepository = new OrderRepository();
-            orderRepository.CreateOrder(order);
+            try
+            {
+                var orderRepository = new OrderRepository();
+                orderRepository.CreateOrder(order);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
         }
 
         public bool OrderIsAlreadyRegistered(OrderRow order)
