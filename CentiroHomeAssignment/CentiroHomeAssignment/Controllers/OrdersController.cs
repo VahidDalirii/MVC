@@ -66,6 +66,9 @@ namespace CentiroHomeAssignment.Controllers
         [HttpPost]
         public IActionResult CreateOrder(OrderRow order)
         {
+            var id = ObjectId.GenerateNewId();
+            order.Id = id;
+            order.Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description;
             if (OrderRepository.OrderIsAlreadyRegistered(order))
             {
                 ModelState.AddModelError("Order", "This order was already registered. Can't register same order twice.");
