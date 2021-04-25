@@ -71,7 +71,7 @@ namespace CentiroHomeAssignment.Controllers
             order.Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description;
             if (OrderRepository.OrderIsAlreadyRegistered(order))
             {
-                ModelState.AddModelError("Order", "This order was already registered. Can't register same order twice.");
+                ModelState.AddModelError("Order", "This order is already registered. Can't register same order twice.");
                 return View(order);
             }
             OrderRepository.CreateOrder(order);
@@ -118,7 +118,7 @@ namespace CentiroHomeAssignment.Controllers
             
             if (OrderRepository.OrderIsAlreadyRegistered(order))
             {
-                ModelState.AddModelError("Order", "This order was already registered. Can't register same order twice.");
+                ModelState.AddModelError("Order", "This order is already registered. Can't register same order twice.");
                 return View(order);
             }
             OrderRepository.EditOrder(order);
