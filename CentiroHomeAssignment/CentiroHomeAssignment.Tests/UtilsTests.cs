@@ -46,7 +46,7 @@ namespace CentiroHomeAssignment.Tests
                 Quantity = "  2  ",
                 Name = "  Test",
                 Description = "   Some des  ",
-                Price = " price",
+                Price = 1.25,
                 ProductGroup = "  Normal ",
                 OrderDate = DateTime.Now,
                 CustomerName = "   Centiro  ",

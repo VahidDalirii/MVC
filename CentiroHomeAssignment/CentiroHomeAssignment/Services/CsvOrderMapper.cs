@@ -12,6 +12,7 @@ namespace CentiroHomeAssignment.Services
         //Add order details from list to an order object 
         public static OrderRow MapRow(List<string> row)
         {
+            _ = string.IsNullOrEmpty(row[6]) ? throw new NullReferenceException("OrderNumber can not be null") : double.TryParse(row[6], out double price);
             var order = new OrderRow
             {
                 OrderNumber = string.IsNullOrEmpty(row[0]) ? throw new NullReferenceException("OrderNumber can not be null") : row[0],
@@ -20,7 +21,7 @@ namespace CentiroHomeAssignment.Services
                 Quantity = string.IsNullOrEmpty(row[3]) ? throw new NullReferenceException("OrderNumber can not be null") : row[3],
                 Name = string.IsNullOrEmpty(row[4]) ? throw new NullReferenceException("OrderNumber can not be null") : row[4],
                 Description = string.IsNullOrEmpty(row[5]) ? "" : row[5],
-                Price = string.IsNullOrEmpty(row[6]) ? throw new NullReferenceException("OrderNumber can not be null") : row[6],
+                Price = price,
                 ProductGroup = string.IsNullOrEmpty(row[7]) ? throw new NullReferenceException("OrderNumber can not be null") : row[7],
                 OrderDate = string.IsNullOrEmpty(row[8]) ? throw new NullReferenceException("OrderNumber can not be null") : DateTime.ParseExact(row[8], "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 CustomerName = string.IsNullOrEmpty(row[9]) ? throw new NullReferenceException("OrderNumber can not be null") : row[9],

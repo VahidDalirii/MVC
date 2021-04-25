@@ -10,7 +10,7 @@ using System.Text;
 
 namespace CentiroHomeAssignment.Services
 {
-    public class Utils: IUtils
+    public class Utils : IUtils
     {
         //Get files from App_Data folder and check for new files, to add new orders to DB 
         public List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path)
@@ -34,7 +34,7 @@ namespace CentiroHomeAssignment.Services
 
                         foreach (var row in rows)
                         {
-                            var splitedRow = parser.GetSplitedRow(row);                            
+                            var splitedRow = parser.GetSplitedRow(row);
                             var order = new OrderRow();
                             try
                             {
@@ -44,11 +44,11 @@ namespace CentiroHomeAssignment.Services
                             {
                                 continue;
                             }
-                            
+
                             if (!OrderIsAlreadyRegistered(order))
                             {
                                 if (AddedOrderSuccessfullyToDatabase(order))
-                                orders.Add(order);
+                                    orders.Add(order);
                             }
                         }
                     }
@@ -97,7 +97,7 @@ namespace CentiroHomeAssignment.Services
             {
                 return false;
             }
-            
+
         }
 
         //Check to not register same order twice in DB
@@ -117,7 +117,7 @@ namespace CentiroHomeAssignment.Services
                     && or.Quantity.Equals(order.Quantity, StringComparison.InvariantCultureIgnoreCase)
                     && or.Name.Equals(order.Name, StringComparison.InvariantCultureIgnoreCase)
                     && or.Description.Equals(order.Description, StringComparison.InvariantCultureIgnoreCase)
-                    && or.Price.Equals(order.Price, StringComparison.InvariantCultureIgnoreCase)
+                    && or.Price == order.Price
                     && or.ProductGroup.Equals(order.ProductGroup, StringComparison.InvariantCultureIgnoreCase)
                     && DateTime.Compare(or.OrderDate, order.OrderDate) == 0
                     && or.CustomerName.Equals(order.CustomerName, StringComparison.InvariantCultureIgnoreCase)
@@ -128,8 +128,8 @@ namespace CentiroHomeAssignment.Services
             }
 
             return false;
-        } 
-        
+        }
+
         //Trim all order values before store in DB
         public OrderRow GetTrimedOrderValues(OrderRow order)
         {
@@ -142,7 +142,7 @@ namespace CentiroHomeAssignment.Services
                 Quantity = order.Quantity.Trim(),
                 Name = order.Name.Trim(),
                 Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description.Trim(),
-                Price = order.Price.Trim(),
+                Price = order.Price < 0 ? 0.0 : Math.Truncate(order.Price * 100) / 100,
                 ProductGroup = order.ProductGroup.Trim(),
                 OrderDate = order.OrderDate,
                 CustomerName = order.CustomerName.Trim(),
