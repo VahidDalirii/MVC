@@ -35,6 +35,33 @@ namespace CentiroHomeAssignment.Tests
 
         }
 
+        [TestMethod]
+        public void GetTrimedOrderValues_SenUntrimedOrder_ShouldTrimAllPropertyValues()
+        {
+            var order = new OrderRow
+            {
+                OrderNumber = "  17835  ",
+                OrderLineNumber = "     0002    ",
+                ProductNumber = "	4000-AAA",
+                Quantity = "  2  ",
+                Name = "  Test",
+                Description = "   Some des  ",
+                Price = " price",
+                ProductGroup = "  Normal ",
+                OrderDate = "2021-04-24",
+                CustomerName = "   Centiro  ",
+                CustomerNumber = "   1234"
+            };
+
+            var utils = new Utils();
+            order = utils.GetTrimedOrderValues(order);
+
+            Assert.AreEqual(order.OrderNumber, "17835");
+            Assert.AreEqual(order.ProductNumber, "4000-AAA");
+            Assert.AreEqual(order.ProductGroup, "Normal");
+            Assert.AreEqual(order.CustomerName, "Centiro");
+        }
+
         public class MockOrderRepository
         {
             public CreateAddOrdersFromFilesMock _mock;

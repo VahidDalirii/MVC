@@ -42,7 +42,7 @@ namespace CentiroHomeAssignment.Controllers
         [HttpPost]
         public IActionResult ShowOrdersByOrderNumber(string orderNumber)
         {
-            var orders = OrderRepository.GetOrdersByOrderNumber(orderNumber);
+            var orders = OrderRepository.GetOrdersByOrderNumber(orderNumber.Trim());
             return View(orders);
         }
 

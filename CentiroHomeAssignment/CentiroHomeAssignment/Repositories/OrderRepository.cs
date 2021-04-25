@@ -35,6 +35,7 @@ namespace CentiroHomeAssignment.Repositories
 
         public void CreateOrder(OrderRow order)
         {
+            order = _utils.GetTrimedOrderValues(order);
             _db.CreateOrder(order);
         }
 
@@ -55,6 +56,7 @@ namespace CentiroHomeAssignment.Repositories
 
         public void EditOrder(OrderRow order)
         {
+            order = _utils.GetTrimedOrderValues(order);
             _db.EditOrder(order);
         }
     }

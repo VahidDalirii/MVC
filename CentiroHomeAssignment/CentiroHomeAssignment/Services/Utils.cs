@@ -127,6 +127,27 @@ namespace CentiroHomeAssignment.Services
             }
 
             return false;
-        }     
+        } 
+        
+        //Trim all order values before store in DB
+        public OrderRow GetTrimedOrderValues(OrderRow order)
+        {
+            var trimedOrder = new OrderRow
+            {
+                OrderNumber = order.OrderNumber.Trim(),
+                OrderLineNumber = order.OrderLineNumber.Trim(),
+                ProductNumber = order.ProductNumber.Trim(),
+                Quantity = order.Quantity.Trim(),
+                Name = order.Name.Trim(),
+                Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description.Trim(),
+                Price = order.Price.Trim(),
+                ProductGroup = order.ProductGroup.Trim(),
+                OrderDate = order.OrderDate.Trim(),
+                CustomerName = order.CustomerName.Trim(),
+                CustomerNumber = order.CustomerNumber.Trim(),
+            };
+
+            return trimedOrder;
+        }
     }
 }

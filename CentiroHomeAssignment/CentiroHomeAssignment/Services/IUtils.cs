@@ -12,5 +12,6 @@ namespace CentiroHomeAssignment.Services
         bool OrderIsAlreadyRegistered(OrderRow order);
         bool FileIsAlreadyRegistered(string fileName);
         bool AddedOrderSuccessfullyToDatabase(OrderRow order);
+        OrderRow GetTrimedOrderValues(OrderRow order);
     }
 }
