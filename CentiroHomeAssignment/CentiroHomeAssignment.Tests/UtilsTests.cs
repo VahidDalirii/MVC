@@ -16,12 +16,12 @@ namespace CentiroHomeAssignment.Tests
         [DeploymentItem("TestFiles\\")]
         public void AddOrdersFromFiles_ReadFilesInDirectory_ReturnAllOrdersInFiles()
         {
-            //var utils = new Mock<Utils>();
-            //utils.Setup(e => e.)
-            var orderRepository = new Mock<IOrderRepository>();
-            orderRepository.Setup(e => e.CreateOrder(null));
+            var utils = new Utils();
+            var mockedUtils = new Mock<IUtils>();
+            mockedUtils.Setup(e => e.OrderIsAlreadyRegistered(It.IsAny<OrderRow>())).Returns(false);
+            //mockedUtils.Setup(x => x.AddOrderToDatabase(It.IsAny<OrderRow>())).
 
-            var orders = Utils.AddOrdersFromFiles(new List<OrderRow>(), "TestFiles\\");
+            var orders = utils.AddOrdersFromFiles(new List<OrderRow>(), "TestFiles\\");
 
             Assert.AreEqual(orders.Count, 13);
 

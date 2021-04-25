@@ -9,7 +9,7 @@ namespace CentiroHomeAssignment.Repositories
 {
     public class OrderRepository: IOrderRepository
     {
-        readonly static Database _db = new Database();
+        readonly static OrdersDb _db = new OrdersDb();
 
         public List<OrderRow> GetOrders()
         {

@@ -1,15 +1,17 @@
 ﻿using CentiroHomeAssignment.Models;
 using CentiroHomeAssignment.Repositories;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace CentiroHomeAssignment.Services
 {
-    public class Utils
+    public class Utils: IUtils
     {
-        public static List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path)
+        public List<OrderRow> AddOrdersFromFiles(List<OrderRow> orders, string path)
         {
             try
             {
@@ -22,6 +24,9 @@ namespace CentiroHomeAssignment.Services
                 {
                     if (Path.GetExtension(file).Equals(".txt", StringComparison.InvariantCultureIgnoreCase))
                     {
+                        var fileName = Path.GetFileName(file);
+                        if (FileIsAlreadyRegistered(fileName))
+                            continue;
                         var parser = new FileParser<OrderRow>('|', true, false, "txt");
                         var rows = parser.GetRows(file, Encoding.UTF8);
                         foreach (var row in rows)
@@ -39,8 +44,7 @@ namespace CentiroHomeAssignment.Services
 
                             if (!OrderIsAlreadyRegistered(order))
                             {
-                                var orderRepository = new OrderRepository();
-                                orderRepository.CreateOrder(order);
+                                AddOrderToDatabase(order);
                                 orders.Add(order);
                             }
                         }
@@ -58,7 +62,31 @@ namespace CentiroHomeAssignment.Services
 
             return orders;
         }
-        public static bool OrderIsAlreadyRegistered(OrderRow order)
+
+        private bool FileIsAlreadyRegistered(string fileName)
+        {
+            var file = new FileModel
+            {
+                Id = ObjectId.GenerateNewId(),
+                FileName = fileName
+            };
+
+            var fileRepository = new FileRepository();
+            var files = fileRepository.GetFiles();
+            if (files.Cast<FileModel>().Any(f => f.FileName == fileName))
+                return true;
+
+            fileRepository.AddFileToDb(file);
+            return false;
+        }
+
+        public void AddOrderToDatabase(OrderRow order)
+        {
+            var orderRepository = new OrderRepository();
+            orderRepository.CreateOrder(order);
+        }
+
+        public bool OrderIsAlreadyRegistered(OrderRow order)
         {
             var orderRepository = new OrderRepository();
             var orders = orderRepository.GetOrders();
@@ -83,9 +111,6 @@ namespace CentiroHomeAssignment.Services
             }
 
             return false;
-        }
-
-
-
+        }     
     }
 }

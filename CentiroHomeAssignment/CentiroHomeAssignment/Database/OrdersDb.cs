@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace CentiroHomeAssignment.Repositories
 {
-    class Database
+    class OrdersDb
     {
         private const string Orders_Collection = "Orders";
 
         private IMongoDatabase _db;
 
-        public Database(string database = "Orders")
+        public OrdersDb(string database = "Orders")
         {
             MongoClient client = new MongoClient();
             _db = client.GetDatabase(database);

@@ -1,11 +1,12 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Diagnostics.CodeAnalysis;
 
 namespace CentiroHomeAssignment.Models
 {
     public class OrderRow
     {
-        [NotNull] 
+        [BsonId]
         public ObjectId Id { get; set; }
         [NotNull]
         public string OrderNumber { get; set; }

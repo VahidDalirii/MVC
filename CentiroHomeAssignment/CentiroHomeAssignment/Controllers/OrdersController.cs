@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using CentiroHomeAssignment.Models;
+﻿using CentiroHomeAssignment.Models;
 using CentiroHomeAssignment.Repositories;
 using CentiroHomeAssignment.Services;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using System;
+using System.Collections.Generic;
 
 namespace CentiroHomeAssignment.Controllers
 {
     public class OrdersController : Controller
     {
         public IOrderRepository OrderRepository { get; set; } = new OrderRepository();
-        
+        public IUtils Utils { get; set; } = new Utils();
         public IActionResult GetAll()
         {
             List<OrderRow> orders = OrderRepository.GetOrders();
 
-            var path = @"D:\Repos\MVC\CentiroHomeAssignment\CentiroHomeAssignment\App_Data\";
+            var path = "App_Data\\";
             orders = Utils.AddOrdersFromFiles(orders, path);
 
             return View(orders);
