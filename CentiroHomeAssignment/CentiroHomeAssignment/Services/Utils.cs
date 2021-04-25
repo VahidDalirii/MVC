@@ -41,7 +41,7 @@ namespace CentiroHomeAssignment.Services
                             {
                                 continue;
                             }
-
+                            
                             if (!OrderIsAlreadyRegistered(order))
                             {
                                 AddOrderToDatabase(order);
@@ -57,7 +57,7 @@ namespace CentiroHomeAssignment.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error when getting orders: {ex.Message}");
+                Console.WriteLine($"{ex.Message}");
             }
 
             return orders;

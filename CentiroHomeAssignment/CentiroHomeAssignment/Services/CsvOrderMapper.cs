@@ -12,17 +12,17 @@ namespace CentiroHomeAssignment.Services
         {
             var order = new OrderRow
             {
-                OrderNumber = row[0] ?? throw new NullReferenceException("OrderNumber can not be null"),
-                OrderLineNumber = row[1] ?? throw new NullReferenceException("OrderLineNumber can not be null"),
-                ProductNumber = row[2] ?? throw new NullReferenceException("ProductNumber can not be null"),
-                Quantity = row[3] ?? throw new NullReferenceException("Quantity can not be null"),
-                Name = row[4] ?? throw new NullReferenceException("Name can not be null"),
+                OrderNumber = string.IsNullOrEmpty(row[0]) ? throw new NullReferenceException("OrderNumber can not be null") : row[0],
+                OrderLineNumber = string.IsNullOrEmpty(row[1]) ? throw new NullReferenceException("OrderNumber can not be null") : row[1],
+                ProductNumber = string.IsNullOrEmpty(row[2]) ? throw new NullReferenceException("OrderNumber can not be null") : row[2],
+                Quantity = string.IsNullOrEmpty(row[3]) ? throw new NullReferenceException("OrderNumber can not be null") : row[3],
+                Name = string.IsNullOrEmpty(row[4]) ? throw new NullReferenceException("OrderNumber can not be null") : row[4],
                 Description = row[5],
-                Price = row[6] ?? throw new NullReferenceException("Price can not be null"),
-                ProductGroup = row[7] ?? throw new NullReferenceException("ProductGroup can not be null"),
-                OrderDate = row[8] ?? throw new NullReferenceException("OrderDate can not be null"),
-                CustomerName = row[9] ?? throw new NullReferenceException("CustomerName number can not be null"),
-                CustomerNumber = row[10] ?? throw new NullReferenceException("CustomerNumber can not be null"),
+                Price = string.IsNullOrEmpty(row[6]) ? throw new NullReferenceException("OrderNumber can not be null") : row[6],
+                ProductGroup = string.IsNullOrEmpty(row[7]) ? throw new NullReferenceException("OrderNumber can not be null") : row[7],
+                OrderDate = string.IsNullOrEmpty(row[8]) ? throw new NullReferenceException("OrderNumber can not be null") : row[8],
+                CustomerName = string.IsNullOrEmpty(row[9]) ? throw new NullReferenceException("OrderNumber can not be null") : row[9],
+                CustomerNumber = string.IsNullOrEmpty(row[10]) ? throw new NullReferenceException("OrderNumber can not be null") : row[10],
             };
 
             return order;

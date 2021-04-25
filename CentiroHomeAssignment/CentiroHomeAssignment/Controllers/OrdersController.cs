@@ -38,15 +38,8 @@ namespace CentiroHomeAssignment.Controllers
         {
             ObjectId orderId = new ObjectId(id);
             var order = new OrderRow();
-            try
-            {
-                order = OrderRepository.GetOrderById(orderId);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error when getting order details: {ex.Message}");
-            }
-
+            order = OrderRepository.GetOrderById(orderId);
+          
             return View(order);
 
         }
