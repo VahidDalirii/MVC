@@ -43,7 +43,7 @@ namespace CentiroHomeAssignment.Tests
                 OrderNumber = "  17835  ",
                 OrderLineNumber = "     0002    ",
                 ProductNumber = "	4000-AAA",
-                Quantity = "  2  ",
+                Quantity = 2,
                 Name = "  Test",
                 Description = "   Some des  ",
                 Price = 1.25,

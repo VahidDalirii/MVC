@@ -114,12 +114,12 @@ namespace CentiroHomeAssignment.Services
                 if (or.OrderNumber.Equals(order.OrderNumber, StringComparison.InvariantCultureIgnoreCase)
                     && or.OrderLineNumber.Equals(order.OrderLineNumber, StringComparison.InvariantCultureIgnoreCase)
                     && or.ProductNumber.Equals(order.ProductNumber, StringComparison.InvariantCultureIgnoreCase)
-                    && or.Quantity.Equals(order.Quantity, StringComparison.InvariantCultureIgnoreCase)
+                    && or.Quantity.CompareTo(order.Quantity) == 0
                     && or.Name.Equals(order.Name, StringComparison.InvariantCultureIgnoreCase)
                     && or.Description.Equals(order.Description, StringComparison.InvariantCultureIgnoreCase)
-                    && or.Price == order.Price
+                    && or.Price.CompareTo(order.Price) == 0
                     && or.ProductGroup.Equals(order.ProductGroup, StringComparison.InvariantCultureIgnoreCase)
-                    && DateTime.Compare(or.OrderDate, order.OrderDate) == 0
+                    && or.OrderDate.Date.CompareTo(order.OrderDate.Date) == 0
                     && or.CustomerName.Equals(order.CustomerName, StringComparison.InvariantCultureIgnoreCase)
                     && or.CustomerNumber.Equals(order.CustomerNumber, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -139,7 +139,7 @@ namespace CentiroHomeAssignment.Services
                 OrderNumber = order.OrderNumber.Trim(),
                 OrderLineNumber = order.OrderLineNumber.Trim(),
                 ProductNumber = order.ProductNumber.Trim(),
-                Quantity = order.Quantity.Trim(),
+                Quantity = order.Quantity,
                 Name = order.Name.Trim(),
                 Description = string.IsNullOrEmpty(order.Description) ? "" : order.Description.Trim(),
                 Price = order.Price < 0 ? 0.0 : Math.Truncate(order.Price * 100) / 100,

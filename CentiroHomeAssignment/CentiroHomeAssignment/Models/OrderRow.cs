@@ -18,7 +18,7 @@ namespace CentiroHomeAssignment.Models
         [NotNull]
         public string ProductNumber { get; set; }
         [NotNull]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         [NotNull]
         public string Name { get; set; }
         [AllowNull]
@@ -29,6 +29,7 @@ namespace CentiroHomeAssignment.Models
         public string ProductGroup { get; set; }
         [NotNull]
         [DataType(DataType.Date)]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime OrderDate { get; set; }
         [NotNull]
         public string CustomerName { get; set; }
