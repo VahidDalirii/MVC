@@ -4,7 +4,15 @@
     ViewData["Title"] = "ShowOrdersByOrderNumber";
 }
 
-<h1>ShowOrdersByOrderNumber</h1>
+@if (Model.Count() == 0)
+{
+    <h1>No Orders</h1>
+}
+else
+{
+    <h1>Orders By Order Number: @Model.FirstOrDefault().OrderNumber</h1>
+}
+
 <hr />
 <br />
 <div>
@@ -14,6 +22,7 @@
     }
     else
     {
+        <p>Number of orders : @Model.Count() orders</p>
         <table class="table">
             <thead>
                 <tr>
